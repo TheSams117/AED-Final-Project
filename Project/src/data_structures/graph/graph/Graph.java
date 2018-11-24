@@ -173,7 +173,7 @@ public class Graph<I, ID extends Comparable<ID>, K, V extends Comparable<V>> {
 		Vertex<I, ID, K, V> vertexSource = getVertex(keyVertexSource);
 		Vertex<I, ID, K, V> vertexTarget = getVertex(keyVertexTarget);
 		if (vertexSource != null && vertexTarget != null) {
-			
+
 			addEdgeBetweenVertices(vertexSource, vertexTarget, edgeWeight, edgeInformation, edgeId);
 		}
 
@@ -267,7 +267,7 @@ public class Graph<I, ID extends Comparable<ID>, K, V extends Comparable<V>> {
 		while (!adjacencyQueue.isEmpty()) {
 			vertex = adjacencyQueue.remove();
 			visitedQueue.add(vertex);
-			vertex.enqueueAdjacencies(adjacencyQueue,visited);
+			vertex.enqueueAdjacencies(adjacencyQueue, visited);
 		}
 
 		return visitedQueue;
@@ -285,8 +285,8 @@ public class Graph<I, ID extends Comparable<ID>, K, V extends Comparable<V>> {
 		while (!adjacencystack.isEmpty()) {
 			vertex = adjacencystack.pop();
 			visitedQueue.add(vertex);
-			vertex.pushAdjacencies(adjacencystack,visited);
-			
+			vertex.pushAdjacencies(adjacencystack, visited);
+
 		}
 
 		return visitedQueue;
@@ -297,16 +297,15 @@ public class Graph<I, ID extends Comparable<ID>, K, V extends Comparable<V>> {
 		Integer[] distance = new Integer[numberOfVertices];
 		boolean[] visited = new boolean[numberOfVertices];
 		Vertex<I, ID, K, V> vertex = getVertex(keySourceVertex);
-		
+
 		PriorityQueue<WayComparator<I, ID, K, V>> pq = new PriorityQueue<WayComparator<I, ID, K, V>>();
-		pq.add(new WayComparator<I, ID, K, V>(0, vertex,null,null));
+		pq.add(new WayComparator<I, ID, K, V>(0, vertex, null, null));
 		distance[vertex.getPosition()] = 0;
-		visited[vertex.getPosition()]= true;
+		visited[vertex.getPosition()] = true;
 
 		while (!pq.isEmpty()) {
 			vertex = pq.poll().getVertexTarget();
 			vertex.relaxEdge(pq, distance, visited);
-			
 
 		}
 
@@ -319,14 +318,14 @@ public class Graph<I, ID extends Comparable<ID>, K, V extends Comparable<V>> {
 		for (int k = 0; k < matrix.length; k++) {
 			for (int i = 0; i < matrix.length; i++) {
 				for (int j = 0; j < matrix.length; j++) {
-					
+
 					Integer a = matrix[i][j];
 					Integer b = matrix[i][k];
 					Integer c = matrix[k][j];
-					
-					if(a != null && b != null && c != null) {
+
+					if (a != null && b != null && c != null) {
 						matrix[i][j] = (a < b + c) ? a : b + c;
-					}else if(a == null && b != null && c != null) {
+					} else if (a == null && b != null && c != null) {
 						matrix[i][j] = b + c;
 					}
 
@@ -337,31 +336,45 @@ public class Graph<I, ID extends Comparable<ID>, K, V extends Comparable<V>> {
 		return matrix;
 
 	}
-	
-	public Graph<I , ID, K, V> PRIM(K keyVertex){
-		Graph<I , ID, K, V> graph = new Graph<I , ID, K, V>(typeGraph);
+
+	public Graph<I, ID, K, V> startNewGraph() {
+		Graph<I, ID, K, V> graph = new Graph<I, ID, K, V>(typeGraph);
+		Collection<Vertex<I, ID, K, V>> vertices = this.vertices.values();
+		for (Iterator<Vertex<I, ID, K, V>> iterator = vertices.iterator(); iterator.hasNext();) {
+			Vertex<I, ID, K, V> vertex = iterator.next();
+			graph.add(vertex.getKey(), vertex.getValue());
+
+		}
+		return graph;
+
+	}
+
+	public Graph<I, ID, K, V> PRIM(K keyVertex) {
+		Graph<I, ID, K, V> graph = startNewGraph();
 		boolean[] visited = new boolean[numberOfVertices];
 		Vertex<I, ID, K, V> vertex = getVertex(keyVertex);
+		WayComparator<I, ID, K, V> wC;
 		PriorityQueue<WayComparator<I, ID, K, V>> pq = new PriorityQueue<WayComparator<I, ID, K, V>>();
-		while(graph.numberOfEdges != graph.numberOfVertices - 1) {
-			if(!visited[vertex.getPosition()]) {
-				vertex.enqueueAdjacenciesPq(pq, visited);
-				visited[vertex.getPosition()] = true;
-				WayComparator<I, ID, K, V> wC = pq.remove();
-				graph.add(vertex.getKey(), vertex.getValue());
-				
-				graph.add(wC.getVertexTarget().getKey(), wC.getVertexTarget().getValue());
-				graph.addEdgeBetweenVertices(vertex.getKey(), wC.getVertexTarget().getKey(), wC.getWeight(), vertex.getEdge(wC.getEdgeId()).getInformation(), wC.getEdgeId());
-				vertex = wC.getVertexTarget();
+
+		while (graph.numberOfEdges != numberOfVertices - 1) {
+			visited[vertex.getPosition()] = true;
+			vertex.enqueueAdjacenciesPq(pq, visited);
+
+			wC = pq.remove();
+			if (!visited[wC.getVertexTarget().getPosition()]) {
+				graph.addEdgeBetweenVertices(wC.getKeySourceVertex(), wC.getVertexTarget().getKey(), wC.getWeight(),
+											 vertices.get(wC.getKeySourceVertex()).getEdge(wC.getEdgeId()).getInformation(), wC.getEdgeId());
 			}
+
+			vertex = wC.getVertexTarget();
 		}
-		
+
 		return graph;
 	}
-	
-	public Graph<I , ID, K, V> KRUSKAL(){
-		Graph<I , ID, K, V> graph = new Graph<I , ID, K, V>(typeGraph);
-		
+
+	public Graph<I, ID, K, V> KRUSKAL() {
+		Graph<I, ID, K, V> graph = new Graph<I, ID, K, V>(typeGraph);
+
 		return graph;
 	}
 }
