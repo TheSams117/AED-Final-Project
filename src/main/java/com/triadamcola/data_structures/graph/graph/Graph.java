@@ -9,7 +9,6 @@ import java.util.Queue;
 import java.util.Stack;
 
 import com.triadamcola.data_structures.graph.edge.Edge;
-import com.triadamcola.data_structures.graph.graph.WayComparator;
 import com.triadamcola.data_structures.graph.vertex.Vertex;
 
 public class Graph<I, ID extends Comparable<ID>, K, V extends Comparable<V>> {
