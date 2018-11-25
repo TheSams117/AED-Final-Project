@@ -1,5 +1,7 @@
 package com.triadamcola.data_structures.graph.graph;
 
+
+
 import com.triadamcola.data_structures.graph.vertex.Vertex;
 
 public class WayComparator<I,ID extends Comparable<ID>,K,V extends Comparable<V>> implements Comparable<WayComparator<I,ID,K,V>>{

@@ -8,8 +8,10 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
 
-import com.triadamcola.data_structures.graph.edge.Edge;
 import com.triadamcola.data_structures.graph.vertex.Vertex;
+import com.triadamcola.data_structures.graph.edge.Edge;
+
+
 
 public class Graph<I, ID extends Comparable<ID>, K, V extends Comparable<V>> {
 	public static final char DIRECTED_GRAPH = 'D';
@@ -43,8 +45,8 @@ public class Graph<I, ID extends Comparable<ID>, K, V extends Comparable<V>> {
 	}
 
 	public boolean existingEdge(K keyVertexSource, K keyVertexTarget) {
-		return (getVertex(keyVertexSource) != null && getVertex(keyVertexSource) != null)
-				? getVertex(keyVertexSource).existingEdge(getVertex(keyVertexSource))
+		return (getVertex(keyVertexSource) != null && getVertex(keyVertexTarget) != null)
+				? getVertex(keyVertexSource).existingEdge(getVertex(keyVertexTarget))
 				: false;
 	}
 
@@ -343,6 +345,7 @@ public class Graph<I, ID extends Comparable<ID>, K, V extends Comparable<V>> {
 		for (Iterator<Vertex<I, ID, K, V>> iterator = vertices.iterator(); iterator.hasNext();) {
 			Vertex<I, ID, K, V> vertex = iterator.next();
 			graph.add(vertex.getKey(), vertex.getValue());
+			graph.getVertex(vertex.getKey()).setPosition(vertex.getPosition());
 
 		}
 		return graph;
@@ -353,14 +356,16 @@ public class Graph<I, ID extends Comparable<ID>, K, V extends Comparable<V>> {
 		Graph<I, ID, K, V> graph = startNewGraph();
 		boolean[] visited = new boolean[numberOfVertices];
 		Vertex<I, ID, K, V> vertex = getVertex(keyVertex);
-		WayComparator<I, ID, K, V> wC;
+		WayComparator<I, ID, K, V> wC = null;
 		PriorityQueue<WayComparator<I, ID, K, V>> pq = new PriorityQueue<WayComparator<I, ID, K, V>>();
 
 		while (graph.numberOfEdges != numberOfVertices - 1) {
 			visited[vertex.getPosition()] = true;
 			vertex.enqueueAdjacenciesPq(pq, visited);
-
-			wC = pq.remove();
+		
+				wC = pq.remove();
+			
+			
 			if (!visited[wC.getVertexTarget().getPosition()]) {
 				graph.addEdgeBetweenVertices(wC.getKeySourceVertex(), wC.getVertexTarget().getKey(), wC.getWeight(),
 											 vertices.get(wC.getKeySourceVertex()).getEdge(wC.getEdgeId()).getInformation(), wC.getEdgeId());
@@ -371,10 +376,28 @@ public class Graph<I, ID extends Comparable<ID>, K, V extends Comparable<V>> {
 
 		return graph;
 	}
-
+	
+	public void enqueueAllEdges(PriorityQueue<WayComparator<I, ID, K, V>> pq ) {
+		Collection<Vertex<I, ID, K, V>> collection = vertices.values();
+		for (Iterator<Vertex<I, ID, K, V>> iterator = collection.iterator(); iterator.hasNext();) {
+			Vertex<I, ID, K, V> vertex = iterator.next();
+			vertex.enqueueAdjacenciesPq(pq, new boolean[numberOfVertices]);
+			
+		}
+	}
+	
 	public Graph<I, ID, K, V> KRUSKAL() {
-		Graph<I, ID, K, V> graph = new Graph<I, ID, K, V>(typeGraph);
-
+		Graph<I, ID, K, V> graph =  startNewGraph();
+		PriorityQueue<WayComparator<I, ID, K, V>> pq = new PriorityQueue<WayComparator<I, ID, K, V>>();
+		enqueueAllEdges( pq );
+		while (graph.numberOfEdges != numberOfVertices - 1) {
+			WayComparator<I, ID, K, V> wC = pq.remove();
+			
+			if ( !graph.existingEdge(wC.getKeySourceVertex(), wC.getVertexTarget().getKey())) {
+				graph.addEdgeBetweenVertices(wC.getKeySourceVertex(), wC.getVertexTarget().getKey(), wC.getWeight(), vertices.get(wC.getKeySourceVertex()).getEdge(wC.getEdgeId()).getInformation(), wC.getEdgeId());
+			}
+		}
+		
 		return graph;
 	}
 }
