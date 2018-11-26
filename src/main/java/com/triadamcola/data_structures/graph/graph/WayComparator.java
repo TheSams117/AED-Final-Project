@@ -1,21 +1,21 @@
 package com.triadamcola.data_structures.graph.graph;
 
-
-
 import com.triadamcola.data_structures.graph.vertex.Vertex;
 
-public class WayComparator<I,ID extends Comparable<ID>,K,V extends Comparable<V>> implements Comparable<WayComparator<I,ID,K,V>>{
+public class WayComparator<I, ID extends Comparable<ID>, K, V extends Comparable<V>>
+		implements Comparable<WayComparator<I, ID, K, V>> {
 	private Integer weight;
-	private	K keySourceVertex;
+	private K keySourceVertex;
 	private ID edgeId;
-	private Vertex<I,ID,K,V> vertexTarget;
-	public WayComparator(Integer weight, Vertex<I,ID,K,V> vertexTarget,K keySourceVertex,ID edgeId ) {
+	private Vertex<I, ID, K, V> vertexTarget;
+
+	public WayComparator(Integer weight, Vertex<I, ID, K, V> vertexTarget, K keySourceVertex, ID edgeId) {
 		this.weight = weight;
 		this.vertexTarget = vertexTarget;
 		this.keySourceVertex = keySourceVertex;
 		this.edgeId = edgeId;
 	}
-	
+
 	/**
 	 * @return the weight
 	 */
@@ -43,7 +43,7 @@ public class WayComparator<I,ID extends Comparable<ID>,K,V extends Comparable<V>
 	public void setVertexTarget(Vertex<I, ID, K, V> vertex) {
 		this.vertexTarget = vertex;
 	}
-	
+
 	/**
 	 * @return the keySourceVertex
 	 */
@@ -72,9 +72,9 @@ public class WayComparator<I,ID extends Comparable<ID>,K,V extends Comparable<V>
 		this.edgeId = edgeId;
 	}
 
-	public int compareTo(WayComparator<I,ID,K,V> arg0) {
-		
-		return weight-arg0.weight;
+	public int compareTo(WayComparator<I, ID, K, V> arg0) {
+
+		return weight - arg0.weight;
 	}
 
 }

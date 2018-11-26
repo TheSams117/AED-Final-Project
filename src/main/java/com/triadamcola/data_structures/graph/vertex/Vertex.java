@@ -44,6 +44,7 @@ public class Vertex<I, ID extends Comparable<ID>, K, V extends Comparable<V>>
 
 	/**
 	 * Vertex Builder
+	 * 
 	 * @param value Value to save in the vertex
 	 * @param key   Identification key of the vertex
 	 */
@@ -82,8 +83,8 @@ public class Vertex<I, ID extends Comparable<ID>, K, V extends Comparable<V>>
 	public void setKey(K key) {
 		this.key = key;
 	}
-	
-	public Edge<I, ID, K, V> getEdge(ID edgeId){
+
+	public Edge<I, ID, K, V> getEdge(ID edgeId) {
 		return adjacentEdges.get(edgeId);
 	}
 
@@ -127,26 +128,26 @@ public class Vertex<I, ID extends Comparable<ID>, K, V extends Comparable<V>>
 	 * @param newVertex   The new vertex to relate to the current
 	 */
 	public void addAdjacentVertex(int weight, ID id, I information, Vertex<I, ID, K, V> newVertex) {
-		adjacentEdges.put(id,new Edge<I, ID, K, V>(weight, id, information, newVertex));
+		adjacentEdges.put(id, new Edge<I, ID, K, V>(weight, id, information, newVertex));
 	}
 
 	/**
-	 * Find the first edge that relates to the current node with the one that arrives by
-	 * parameter
+	 * Find the first edge that relates to the current node with the one that
+	 * arrives by parameter
 	 * 
 	 * @param vertexToSearch The vertex that is sought
-	 * @return The first edge relates the current vertex and the search, if it exists, in
-	 *         the opposite case it returns null
+	 * @return The first edge relates the current vertex and the search, if it
+	 *         exists, in the opposite case it returns null
 	 */
-	public Edge<I,ID, K, V> getEdgeBetweenVertices(Vertex<I, ID, K, V> vertexToSearch) {
-		Edge<I,ID, K, V> edge = null;
-		Collection<Edge<I,ID, K, V>> collection = adjacentEdges.values();
+	public Edge<I, ID, K, V> getEdgeBetweenVertices(Vertex<I, ID, K, V> vertexToSearch) {
+		Edge<I, ID, K, V> edge = null;
+		Collection<Edge<I, ID, K, V>> collection = adjacentEdges.values();
 		for (Iterator<Edge<I, ID, K, V>> iterator = collection.iterator(); iterator.hasNext() && edge == null;) {
-			Edge<I,ID, K, V> edgeItera = iterator.next(); 
-			edge = (edgeItera.getVertexTarget().compareTo(vertexToSearch) == 0) ? edgeItera	: null;
-			
+			Edge<I, ID, K, V> edgeItera = iterator.next();
+			edge = (edgeItera.getVertexTarget().compareTo(vertexToSearch) == 0) ? edgeItera : null;
+
 		}
-		
+
 		return edge;
 	}
 
@@ -158,22 +159,23 @@ public class Vertex<I, ID extends Comparable<ID>, K, V extends Comparable<V>>
 	public Edge<I, ID, K, V> deleteEdgeBetweenVertex(ID edgeId) {
 		return adjacentEdges.remove(edgeId);
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public int deleteEdgeBetweenVertex(Vertex<I,ID,K,V> vertex) {
-		Collection<Edge<I,ID,K,V>> collection = ((Hashtable<K, Edge<I, ID, K, V>>) adjacentEdges.clone()).values();
+	public int deleteEdgeBetweenVertex(Vertex<I, ID, K, V> vertex) {
+		Collection<Edge<I, ID, K, V>> collection = ((Hashtable<K, Edge<I, ID, K, V>>) adjacentEdges.clone()).values();
 		int edgesDeleted = 0;
-		for (Iterator<Edge<I,ID,K,V>> iterator = collection.iterator(); iterator.hasNext();) {
-			Edge<I,ID,K,V> edge = iterator.next();
-			if(edge.getVertexTarget().compareTo(vertex) == 0) {
+		for (Iterator<Edge<I, ID, K, V>> iterator = collection.iterator(); iterator.hasNext();) {
+			Edge<I, ID, K, V> edge = iterator.next();
+			if (edge.getVertexTarget().compareTo(vertex) == 0) {
 				adjacentEdges.remove(edge.getId());
 				collection = adjacentEdges.values();
-				edgesDeleted+=1;
+				edgesDeleted += 1;
 			}
-			
+
 		}
 		return edgesDeleted;
 	}
+
 	/**
 	 * 
 	 * @param vertexToSearch
@@ -182,39 +184,41 @@ public class Vertex<I, ID extends Comparable<ID>, K, V extends Comparable<V>>
 	public boolean existingEdge(Vertex<I, ID, K, V> vertexToSearch) {
 		return (getEdgeBetweenVertices(vertexToSearch) == null) ? false : true;
 	}
+
 	/**
 	 * 
 	 * @param stack
 	 */
-	public void enqueueAdjacencies(Queue<Vertex<I,ID,K,V>> queue, boolean[] visited) {
-		Collection<Edge<I,ID,K,V>> edges = adjacentEdges.values();
+	public void enqueueAdjacencies(Queue<Vertex<I, ID, K, V>> queue, boolean[] visited) {
+		Collection<Edge<I, ID, K, V>> edges = adjacentEdges.values();
 		for (Iterator<Edge<I, ID, K, V>> iterator = edges.iterator(); iterator.hasNext();) {
 			Vertex<I, ID, K, V> vertex = iterator.next().getVertexTarget();
-			if(!visited[vertex.getPosition()]) {
+			if (!visited[vertex.getPosition()]) {
 				queue.add(vertex);
-				
+
 				visited[vertex.getPosition()] = true;
 			}
-			
-			
+
 		}
 	}
+
 	/**
 	 * 
 	 * @param stack
 	 */
-	public void pushAdjacencies(Stack<Vertex<I,ID,K,V>> stack, boolean[] visited) {
-		Collection<Edge<I,ID,K,V>> edges = adjacentEdges.values();
+	public void pushAdjacencies(Stack<Vertex<I, ID, K, V>> stack, boolean[] visited) {
+		Collection<Edge<I, ID, K, V>> edges = adjacentEdges.values();
 		for (Iterator<Edge<I, ID, K, V>> iterator = edges.iterator(); iterator.hasNext();) {
 			Vertex<I, ID, K, V> vertex = iterator.next().getVertexTarget();
-			if(!visited[vertex.getPosition()]) {
+			if (!visited[vertex.getPosition()]) {
 				stack.push(vertex);
-				
+
 				visited[vertex.getPosition()] = true;
 			}
 		}
-		
+
 	}
+
 	/**
 	 * 
 	 * @param pq
@@ -222,38 +226,43 @@ public class Vertex<I, ID extends Comparable<ID>, K, V extends Comparable<V>>
 	 * @param visited
 	 */
 	public void enqueueAdjacenciesPq(PriorityQueue<WayComparator<I, ID, K, V>> pq, boolean[] visited) {
-		Collection<Edge<I,ID,K,V>> edges = adjacentEdges.values();
+		Collection<Edge<I, ID, K, V>> edges = adjacentEdges.values();
 		for (Iterator<Edge<I, ID, K, V>> iterator = edges.iterator(); iterator.hasNext();) {
 			Edge<I, ID, K, V> edge = iterator.next();
-			Vertex<I, ID, K, V> vertex =  edge.getVertexTarget();
-			if(!visited[vertex.getPosition()]) {
-		
-				pq.add(new WayComparator<I, ID, K, V>(edge.getWeight(), vertex,key,edge.getId()));
-				
+			Vertex<I, ID, K, V> vertex = edge.getVertexTarget();
+			if (!visited[vertex.getPosition()]) {
+
+				pq.add(new WayComparator<I, ID, K, V>(edge.getWeight(), vertex, key, edge.getId()));
+
 			}
 		}
 	}
-	public void relaxEdge(PriorityQueue<WayComparator<I, ID, K, V>> pq,Integer[] distance, boolean[] visited) {
-		Collection<Edge<I,ID,K,V>> edges = adjacentEdges.values();
+
+	public void relaxEdge(PriorityQueue<WayComparator<I, ID, K, V>> pq, Integer[] distance, boolean[] visited) {
+		Collection<Edge<I, ID, K, V>> edges = adjacentEdges.values();
 		for (Iterator<Edge<I, ID, K, V>> iterator = edges.iterator(); iterator.hasNext();) {
 			Edge<I, ID, K, V> edge = iterator.next();
-			Vertex<I, ID, K, V> vertex =  edge.getVertexTarget();
-			if(!visited[vertex.getPosition()]) {
-				if(distance[vertex.getPosition()] == null) {
-					distance[vertex.getPosition()] = distance[position]+edge.getWeight();
-				}else if(distance[vertex.getPosition()]>distance[position]+edge.getWeight()){
-					distance[vertex.getPosition()] = distance[position]+edge.getWeight();
+			Vertex<I, ID, K, V> vertex = edge.getVertexTarget();
+			if (!visited[vertex.getPosition()]) {
+				if (distance[vertex.getPosition()] == null) {
+					distance[vertex.getPosition()] = distance[position] + edge.getWeight();
+				} else if (distance[vertex.getPosition()] > distance[position] + edge.getWeight()) {
+					distance[vertex.getPosition()] = distance[position] + edge.getWeight();
 				}
-				pq.add(new WayComparator<I, ID, K, V>(edge.getWeight(), vertex,null,null));
-				
+				pq.add(new WayComparator<I, ID, K, V>(edge.getWeight(), vertex, null, null));
+
 				visited[vertex.getPosition()] = true;
 			}
 		}
 	}
+
 	/**
-	 * Compare the vertex who arrives by parameter with the current one according to his value
+	 * Compare the vertex who arrives by parameter with the current one according to
+	 * his value
+	 * 
 	 * @param vertex Vertex to compare
-	 * @return Return a integer positive if current vertex is greater, a integer negative if current vertex is less or zero if both vertex are equal.
+	 * @return Return a integer positive if current vertex is greater, a integer
+	 *         negative if current vertex is less or zero if both vertex are equal.
 	 */
 	public int compareTo(Vertex<I, ID, K, V> vertex) {
 		return value.compareTo(vertex.getValue());
