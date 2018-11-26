@@ -5,157 +5,306 @@
  */
 package test;
 
+import com.triadamcola.data_structures.graph.edge.Edge;
 import com.triadamcola.data_structures.graph.graph.Graph;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import com.triadamcola.data_structures.graph.vertex.Vertex;
+
+import junit.framework.TestCase;
+
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  *
  * @author ASUS
  */
-public class GraphTest {
-    
-    
-    
-    
-    
-    public GraphTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
-    
-    
-    
- //   	private Graph<String, Integer, Integer, String> graph;
+public class GraphTest extends TestCase{
 	
-//	private void setupStage1() {
-//		graph = new Graph<String, Integer, Integer, String>(Graph.DIRECTED_GRAPH);
-//		graph.add(0,"0V");
-//		graph.add(1,"1V");
-//		graph.add(2,"2V");
-//		graph.add(3,"3V");
-//		graph.add(4,"4V");
-//		graph.add(5,"5V");
-//		graph.add(6,"6V");
-//		graph.add(7,"7V");
-//		graph.addEdgeBetweenVertices(1, 2, 0, "", 1);
-//		graph.addEdgeBetweenVertices(1, 4, 0, "", 2);
-//		graph.addEdgeBetweenVertices(1, 0, 0, "", 3);
-//		graph.addEdgeBetweenVertices(3, 2, 0, "", 1);
-//		graph.addEdgeBetweenVertices(4, 3, 0, "", 1);
-//		graph.addEdgeBetweenVertices(5, 1, 0, "", 1);
-//		graph.addEdgeBetweenVertices(5, 2, 0, "", 2);
-//		graph.addEdgeBetweenVertices(7, 1, 0, "", 1);
-//		graph.addEdgeBetweenVertices(7, 6, 0, "", 2);
-//		graph.addEdgeBetweenVertices(0, 3, 0, "", 1);
-//		graph.addEdgeBetweenVertices(0, 5, 0, "", 2);
-//		graph.addEdgeBetweenVertices(0, 7, 0, "", 3);
-//	}
-//	
-//	private void setupStage2() {
-//		graph = new Graph<String, Integer, Integer, String>(Graph.INDIRECTED_GRAPH);
-//		graph.add(1,"1V");
-//		graph.add(2,"2V");
-//		graph.add(3,"3V");
-//		graph.add(4,"4V");
-//		graph.add(5,"5V");
-//		graph.add(6,"6V");
-//		graph.add(7,"7V");
-//		graph.addEdgeBetweenVertices(1, 7, 65, "", 1);
-//		graph.addEdgeBetweenVertices(1, 2, 15, "", 2);
-//		graph.addEdgeBetweenVertices(1, 6, 30, "", 3);
-//		graph.addEdgeBetweenVertices(1, 4, 25, "", 4);
-//		graph.addEdgeBetweenVertices(1, 3, 6, "", 5);
-//		
-//		graph.addEdgeBetweenVertices(2, 6, 14, "", 1);
-//		graph.addEdgeBetweenVertices(2, 5, 13, "", 2);
-//		
-//		graph.addEdgeBetweenVertices(3, 4, 4, "", 1);
-//		
-//		graph.addEdgeBetweenVertices(4, 5, 5, "", 1);
-//		
-//		graph.addEdgeBetweenVertices(5, 6, 8, "", 1);
-//		
-//		graph.addEdgeBetweenVertices(6, 7, 12, "", 1);
-//		
-//	
-//	}
-//	
-//	public void testBFS() {
-//
-//		setupStage1();
-//		Hashtable<Integer,Vertex<String, Integer, Integer, String>> expectedOutput = new Hashtable<Integer, Vertex<String,Integer,Integer,String>>();
-//		expectedOutput.put(5, new Vertex<String, Integer, Integer, String>(5,"5V"));
-//		expectedOutput.put(1, new Vertex<String, Integer, Integer, String>(1,"1V"));
-//		expectedOutput.put(2, new Vertex<String, Integer, Integer, String>(2,"2V"));
-//		expectedOutput.put(0, new Vertex<String, Integer, Integer, String>(0,"0V"));
-//		expectedOutput.put(4, new Vertex<String, Integer, Integer, String>(4,"4V"));
-//		expectedOutput.put(3, new Vertex<String, Integer, Integer, String>(3,"3V"));
-//		expectedOutput.put(7, new Vertex<String, Integer, Integer, String>(7,"7V"));
-//		expectedOutput.put(6, new Vertex<String, Integer, Integer, String>(6,"6V"));
-//	//	Hashtable<Integer,Vertex<String, Integer, Integer, String>> outPut = graph.BFS(graph.getVertex(5));
-//		Collection<Vertex<String, Integer, Integer, String>> a = expectedOutput.values();
-//		Collection<Vertex<String, Integer, Integer, String>> b = outPut.values();
-//		Iterator<Vertex<String, Integer, Integer, String>> iteratorB = b.iterator();
-//	
-//		for (Iterator<Vertex<String, Integer, Integer, String>> iteratorA = a.iterator(); iteratorA.hasNext() ;) {
-//			Vertex<String, Integer, Integer, String> vertexA =  iteratorA.next();
-//			Vertex<String, Integer, Integer, String> vertexB =  iteratorB.next();
-//			if(vertexA.compareTo(vertexB)!=0) {
-//				fail();
-//			}
-//			
-//		}
-//	}
-//	
-//	public void testDFS() {
-//
-//		setupStage1();
-//		Hashtable<Integer,Vertex<String, Integer, Integer, String>> expectedOutput = new Hashtable<Integer, Vertex<String,Integer,Integer,String>>();
-//		expectedOutput.put(5, new Vertex<String, Integer, Integer, String>(5,"5V"));
-//		expectedOutput.put(1, new Vertex<String, Integer, Integer, String>(1,"1V"));
-//		expectedOutput.put(0, new Vertex<String, Integer, Integer, String>(0,"0V"));
-//		expectedOutput.put(3, new Vertex<String, Integer, Integer, String>(3,"3V"));
-//		expectedOutput.put(2, new Vertex<String, Integer, Integer, String>(2,"2V"));
-//		expectedOutput.put(7, new Vertex<String, Integer, Integer, String>(7,"7V"));
-//		expectedOutput.put(6, new Vertex<String, Integer, Integer, String>(6,"6V"));
-//		expectedOutput.put(4, new Vertex<String, Integer, Integer, String>(4,"4V"));
-//	//	Hashtable<Integer,Vertex<String, Integer, Integer, String>> outPut = graph.DFS(graph.getVertex(1));
-//		Collection<Vertex<String, Integer, Integer, String>> a = expectedOutput.values();
-//		Collection<Vertex<String, Integer, Integer, String>> b = outPut.values();
-//		Iterator<Vertex<String, Integer, Integer, String>> iteratorB = b.iterator();
-//		for (Iterator<Vertex<String, Integer, Integer, String>> iteratorA = a.iterator(); iteratorA.hasNext();) {
-//			Vertex<String, Integer, Integer, String> vertexA =  iteratorA.next();
-//			Vertex<String, Integer, Integer, String> vertexB =  iteratorB.next();
-//			if(vertexA.compareTo(vertexB)!=0) {
-//				fail();
-//			}
-//			
-//		}
-//	}
+	private Graph<Integer, Integer, Integer, Integer> graph;
+	private Integer[][] matrix;
+	private Queue<Vertex<Integer,Integer,Integer,Integer>> visited;
+	
+	private void setupStage1() {
+		graph = new Graph<Integer, Integer, Integer, Integer>(Graph.DIRECTED_GRAPH);
+		
+		for (int i = 0; i < 7; i++) {
+			graph.add(i,i);
+			
+		}
+		int edgeId = 0;
+		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 7; j++) {
+				graph.addEdgeBetweenVertices(i, j, 0, 0, edgeId);
+				edgeId += 1;
+			}
+		}
+		
+	}
+	
+	private void setupStage2() {
+		graph = new Graph<Integer, Integer, Integer, Integer>(Graph.INDIRECTED_GRAPH);
+		
+		Integer[][] matrix = {{0 , 12, 40, 12, 32},
+							  {12, 0,  32, 12, 42},
+							  {40, 32, 0 , 12, 42},
+							  {12, 12, 12, 0 , 78},
+							  {32, 42, 42, 78, 0 }};
+		this.matrix = matrix;
+		
+		for (int i = 0; i < matrix.length; i++) {
+			graph.add(i,i);
+			
+		}
+		
+		for (int i = 0; i <matrix.length; i++) {
+			for (int j = 0; j != i+1; j++) {
+				
+				graph.addEdgeBetweenVertices(i, j, matrix[i][j], 0, j );
+				
+			}
+		}
+		
+	}
+	
+	private void setupStage3() {
+		graph = new Graph<Integer, Integer, Integer, Integer>(Graph.INDIRECTED_GRAPH);
+		visited = new LinkedList<>();
+		Integer[][] matrix = {{null, 1   , 2   , null, null, null},
+							  {1   , null, null ,6   , null, null},
+							  {2   , null, null ,7   , 9   , null},
+							  {null, 6   , 7    ,null, null, 10  },
+							  {null, null, 9    ,null, null, null},
+							  {null, null, null ,10  , null, null}};
+		this.matrix = matrix;
+		
+		for (int i = 0; i < matrix.length; i++) {
+			graph.add(i,i);
+		}
+		visited.add(new Vertex<Integer, Integer, Integer, Integer>(0, 0));
+		visited.add(new Vertex<Integer, Integer, Integer, Integer>(1, 1));
+		visited.add(new Vertex<Integer, Integer, Integer, Integer>(2, 2));
+		visited.add(new Vertex<Integer, Integer, Integer, Integer>(3, 3));
+		visited.add(new Vertex<Integer, Integer, Integer, Integer>(4, 4));
+		visited.add(new Vertex<Integer, Integer, Integer, Integer>(5, 5));
+		int edgeId = 36;
+		for (int i = 0; i <matrix.length; i++) {
+			for (int j = 0; j != i+1; j++) {
+				if(matrix[i][j]!=null) {
+					graph.addEdgeBetweenVertices(i, j, matrix[i][j], 0, edgeId );
+					edgeId-=1;
+				}
+				
+				
+			}
+		}
+		
+	}
+	
+	
+	private void setupStage4() {
+		graph = new Graph<Integer, Integer, Integer, Integer>(Graph.INDIRECTED_GRAPH);
+		visited = new LinkedList<>();
+		Integer[][] matrix = {{null, 1   , 1   , null, null, null},
+							  {1   , null, null ,1   , null, null},
+							  {1   , null, null ,1   , 1   , null},
+							  {null, 1   , 1    ,null, null, 1   },
+							  {null, null, 1    ,null, null, null},
+							  {null, null, null ,1   , null, null}};
+		this.matrix = matrix;
+		
+		for (int i = 0; i < matrix.length; i++) {
+			graph.add(i,i);
+		}
+		visited.add(new Vertex<Integer, Integer, Integer, Integer>(0, 0));
+		visited.add(new Vertex<Integer, Integer, Integer, Integer>(2, 2));
+		visited.add(new Vertex<Integer, Integer, Integer, Integer>(3, 3));
+		visited.add(new Vertex<Integer, Integer, Integer, Integer>(5, 5));
+		visited.add(new Vertex<Integer, Integer, Integer, Integer>(4, 4));
+		visited.add(new Vertex<Integer, Integer, Integer, Integer>(1, 1));
+		int edgeId = 36;
+		for (int i = 0; i <matrix.length; i++) {
+			for (int j = 0; j != i+1; j++) {
+				if(matrix[i][j]!=null) {
+					graph.addEdgeBetweenVertices(i, j, matrix[i][j], 0, edgeId );
+					edgeId-=1;
+				}
+				
+				
+			}
+		}	
+	}
+	
+	private void setupStage5() {
+		graph = new Graph<Integer, Integer, Integer, Integer>(Graph.INDIRECTED_GRAPH);
+		Integer[][] matrix = {{0   , 4   , 1   , null, null},
+							  {4   , 0   , 10  , 6   , null},
+							  {1   , 10  , 0   , 8   , 6   },
+							  {null, 6   , 8   , 0   , 5   },
+							  {null, null, 6   , 5   , 0   }};
+		
+		for (int i = 0; i < matrix.length; i++) {
+			graph.add(i,i);
+		}
+		int edgeId = 0;
+		for (int i = 0; i <matrix.length; i++) {
+			for (int j = 0; j != i+1; j++) {
+				if(matrix[i][j]!=null) {
+					graph.addEdgeBetweenVertices(i, j, matrix[i][j], 0, edgeId );
+					edgeId+=1;
+				}
+				
+				
+			}
+		}	
+	}
+	
+	private void setupStage6() {
+		graph = new Graph<Integer, Integer, Integer, Integer>(Graph.DIRECTED_GRAPH);
+		Integer[][] matrix = {{0   , null, -2  , null},
+							  {4   , 0   , 3   , null},
+							  {null, null, 0   , 2   },
+							  {null, -1  , null, 0   }};
+		this.matrix = matrix;
+		
+		for (int i = 0; i < matrix.length; i++) {
+			graph.add(i,i);
+		}
+		int edgeId = 0;
+		for (int i = 0; i <matrix.length; i++) {
+			for (int j = 0; j<matrix.length; j++) {
+				if(matrix[i][j]!=null) {
+					graph.addEdgeBetweenVertices(i, j, matrix[i][j], 0, edgeId );
+					edgeId+=1;
+				}
+				
+				
+			}
+		}	
+	}
+	
+	public void testAdd() {
+		setupStage1();
+		assertTrue(graph.getNumberOfVertices() == 7);
+	}
+	
+	public void testAddEdgeBetweenVertices() {
+		setupStage1();
+		assertTrue(graph.getNumberOfEdges() == 49);
+	}
+	
+	public void testExistingEdge() {
+		setupStage1();
+		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 7; j++) {
+				assertTrue(graph.getVertex(i).existingEdge(graph.getVertex(j)));
+			}
+		}
+	}
+	
+	public void testRemoveEdgeBetweenVertices() {
+		setupStage1();
+		int edgeId = 0;
+		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 7; j++) {
+				graph.removeEdgeBetweenVertices(i, edgeId);
+				edgeId += 1;
+			}
+		}
+		assertTrue(graph.getNumberOfEdges() == 0);
+	}
+	
+	public void testRemoveVertex() {
+		setupStage1();
+		
+		for (int i = 0; i < 7; i++) {
+			graph.removeVertex(i);
+		}
+		
+		assertTrue(graph.getNumberOfVertices() == 0);
+	}
+	
+	public void testAdjacencyMatrixWeight() {
+		setupStage2();
+		Integer[][] adjacencyMatrixWeight = graph.getAdjacencyMatrixWeight();
+		
+		for (int i = 0; i < adjacencyMatrixWeight.length; i++) {
+			for (int j = 0; j < adjacencyMatrixWeight.length; j++) {
+				assertTrue(adjacencyMatrixWeight[i][j] == matrix[i][j]);
+			}
+		}
+	}
 
+	public void testBFS() {
+		setupStage3();
+		Queue<Vertex<Integer,Integer,Integer,Integer>> queueBFS = graph.BFS(0);
+		assertTrue(visited.size() == queueBFS.size());
+		for (int i = 0; i < visited.size(); i++) {
+			assertTrue(visited.poll().compareTo(queueBFS.poll()) == 0);
+		}
+	}
+	
+	public void testDFS() {
+		setupStage4();
+		Queue<Vertex<Integer,Integer,Integer,Integer>> queueDFS = graph.DFS(0);
+		assertTrue(visited.size() == queueDFS.size());
+		for (int i = 0; i < visited.size(); i++) {
+			assertTrue(visited.poll().compareTo(queueDFS.poll()) == 0);
+		}
+	}
+	
+	public void testDijkstra() {
+		setupStage5();
+		Integer[] distance = {0,4,1,9,7};
+		Integer[] distanceDijktra = graph.Dijkstra(0);
+		for (int i = 0; i < distanceDijktra.length; i++) {
+			assertTrue(distance[i] == distanceDijktra[i]);
+		}
+		
+	}
+	
+	public void testFloydWarshall() {
+		setupStage6();
+		Integer[][] distance = {{0, -1,-2, 0},
+								{4,  0, 2, 4},
+								{5,  1, 0, 2},
+								{3, -1, 1, 0}};
+		Integer[][] distanceFloydWarshall = graph.FloydWarshall();
+		
+		for (int i = 0; i < distanceFloydWarshall.length; i++) {
+			for (int j = 0; j < distanceFloydWarshall.length; j++) {
+				assertTrue(distance[i][j] == distanceFloydWarshall[i][j]);
+			}
+		}
+	}
+	
+	public void testPRIM() {
+		setupStage3();
+		Graph<Integer, Integer, Integer, Integer> graph = this.graph.PRIM(0);
+		Integer[] dijktraPrePrim = this.graph.Dijkstra(0);
+		Integer[] dijktraPostPrim = graph.Dijkstra(0);
+		for (int i = 0; i < dijktraPrePrim.length; i++) {
+			assertTrue(dijktraPrePrim[i] == dijktraPostPrim[i]);
+		}
+	}
+	
+	public void testKRUSKAL() {
+		setupStage3();
+		Graph<Integer, Integer, Integer, Integer> graph = this.graph.KRUSKAL();
+		int cost = 0;
+		Collection<Vertex<Integer,Integer,Integer,Integer>> vertices = graph.getVertices().values();
+		for (Iterator<Vertex<Integer, Integer, Integer, Integer>> iterator = vertices.iterator(); iterator.hasNext();) {
+			Vertex<Integer, Integer, Integer, Integer> vertex = iterator.next();
+			Collection<Edge<Integer,Integer,Integer,Integer>> edges = vertex.getAdjacentEdges().values();
+			
+			for (Iterator<Edge<Integer, Integer, Integer, Integer>> iterator2 = edges.iterator(); iterator2.hasNext();) {
+				Edge<Integer, Integer, Integer, Integer> edge = iterator2.next();
+				cost+=edge.getWeight();
+			}
+			
+		}
+		
+		assertTrue(cost == 28*2);
+	}
 }
