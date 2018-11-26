@@ -8,11 +8,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+
 
 /**
  * @author ASUS
@@ -74,28 +72,27 @@ public class Connexion {
         this.password = password;
     }
     
-    public boolean connect(boolean verify) {
+    @SuppressWarnings("restriction")
+	public boolean connect(boolean verify) {
         boolean ok = true;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://" + host + ":3306/" + database, user, password);
-                    
         } catch (ClassNotFoundException | SQLException ex) {
             if (!verify) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al conectar con la base de datos \n Configure la conexión correctamente e intente de nuevo", ButtonType.OK);
+            	System.out.println(ex.getMessage());
             }
         }
         return ok;
     }
     
-    public ResultSet ejecutar(String command, String[] data, boolean receive) throws SQLException {
+    public ResultSet execute(String command, String[] data, boolean receive) throws SQLException {
         ResultSet rs = null;
         if (con != null) {
             PreparedStatement preparedStatement = con.prepareStatement(command);
             if (data != null) {
                 for (int i = 0; i < data.length;i++) {
-                    preparedStatement.setString(i+1, data[i]);
-                                       
+                    preparedStatement.setString(i+1, data[i]);                    
                 }
              
             }
@@ -109,12 +106,13 @@ public class Connexion {
         return rs;
     }
     
-    public void desconectar() {
+    public void disconnect() {
         try {
             con.close();
         } catch (SQLException | NullPointerException ex) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "Access denied for User: " + user + ", Password: " + password + ". Configure DB connection.");
         }
-    }
-  
+    } 
 }
+
+

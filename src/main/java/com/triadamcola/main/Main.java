@@ -13,15 +13,20 @@ import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 
 public class Main extends Application {
-
+	
+	public Main() {
+		System.out.println("PUTOS TODOS");
+	}
+	
+	
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
-            Scene scene = new Scene(root);
-            //scene.getStylesheets().add("/styles/Styles.css");
-            primaryStage.setTitle("JavaFX and Maven");
-            primaryStage.setScene(scene);
-            primaryStage.show();
+		new TriadamRouteIni();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+        Scene scene = new Scene(root);       
+        primaryStage.setTitle("Login - TriadamRoutes");
+        primaryStage.setScene(scene);
+        primaryStage.show();
 	}
 
 	public static void main(String[] args) {

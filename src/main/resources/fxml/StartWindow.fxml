@@ -10,8 +10,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane cache="true" prefHeight="500.0" prefWidth="650.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+<AnchorPane cache="true" prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.triadamcola.controller.COrders">
    <children>
       <SplitPane dividerPositions="0.4027777777777778" prefHeight="300.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -23,30 +22,30 @@
                       <TableColumn maxWidth="1.7976931348623157E308" prefWidth="131.0" resizable="false" text="Peso del Pedido" />
                     </columns>
                      <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Button layoutX="14.0" layoutY="463.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" text="Agregar Pedido" />
-                  <Button layoutX="136.0" layoutY="463.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="108.0" text="Eliminar Pedido" />
+                  <Button fx:id="btnAddOrder" layoutX="14.0" layoutY="463.0" mnemonicParsing="false" onAction="#addOrder" prefHeight="25.0" prefWidth="108.0" text="Agregar Pedido" />
+                  <Button fx:id="btnDelateOrder" layoutX="136.0" layoutY="463.0" mnemonicParsing="false" onAction="#delateOrder" prefHeight="25.0" prefWidth="108.0" text="Eliminar Pedido" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Label layoutX="139.0" layoutY="284.0" prefHeight="37.0" prefWidth="116.0" text="Nombre del Usuario" />
+                  <Label fx:id="labUserName" layoutX="139.0" layoutY="284.0" prefHeight="37.0" prefWidth="116.0" text="Nombre del Usuario" />
                   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="117.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../docs/usuario.png" />
+                        <Image url="/img/usuario.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="61.0" fitWidth="171.0" layoutX="213.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../docs/empresa.png" />
+                        <Image url="/img/empresa.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="139.0" layoutY="334.0" mnemonicParsing="false" text="Entregar Pedidos" />
+                  <Button fx:id="btnDeliverOrder" layoutX="139.0" layoutY="334.0" mnemonicParsing="false" onAction="#deliverOrder" text="Entregar Pedidos" />
                   <ImageView fitHeight="150.0" fitWidth="384.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../docs/Desarrollo.png" />
+                        <Image url="/img/Desarrollo.png" />
                      </image>
                   </ImageView>
                </children>

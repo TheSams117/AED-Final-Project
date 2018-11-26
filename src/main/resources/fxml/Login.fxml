@@ -20,8 +20,7 @@ and open the template in the editor.
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.triadamcola.controller.Login">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.triadamcola.controller.CLogin">
    <children>
       <Pane layoutX="30.0" layoutY="223.0" prefHeight="154.0" prefWidth="200.0" style="-fx-border-color: #ccc;">
          <children>
@@ -64,12 +63,12 @@ and open the template in the editor.
             <Image url="/img/LoginUser.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnQuit" layoutX="39.0" layoutY="447.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="SALIR">
+      <Button fx:id="btnQuit" layoutX="39.0" layoutY="447.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="180.0" text="SALIR">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnLogin" layoutX="39.0" layoutY="395.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" text="INGRESAR">
+      <Button fx:id="btnLogin" layoutX="39.0" layoutY="395.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="180.0" text="INGRESAR">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
