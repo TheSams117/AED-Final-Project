@@ -71,31 +71,40 @@ public class Routes {
 	 * @throws ApiException 
 	 */
 	public static void main(String[] args) throws ApiException, InterruptedException, IOException {
-		 Graph<Integer,Integer,Integer,String> graph = new Routes().generateGraph();
-		 Queue<Vertex<Integer,Integer,Integer,String>> vertex = new Routes().generateDeliveryRoute();
-		 for (Iterator<Vertex<Integer, Integer, Integer, String>> iterator = vertex.iterator(); iterator.hasNext();) {
-			Vertex<Integer, Integer, Integer, String> vertex2 = iterator.next();
-			System.out.println(vertex2.getPosition());
-			
-		}
-		Integer[][] a = graph.getAdjacencyMatrixWeight();
-		
-		for (int i = 0; i < a.length; i++) {
-			for (int j = 0; j < a.length; j++) {
-				System.out.print(a[i][j]+" ");
-			}
-			System.out.println("");
-		}
-		
+		//--------------- for test --------------------------------- 
+//		Graph<Integer,Integer,Integer,String> graph = new Routes().generateGraph();
+//		 Queue<String> vertex = new Routes().generateDeliveryRoute();
+//		 for (Iterator<String> iterator = vertex.iterator(); iterator.hasNext();) {
+//			String vertex2 = iterator.next();
+//		
+//			System.out.println(vertex2);
+//			
+//		}
+//		Integer[][] a = graph.getAdjacencyMatrixWeight();
+//		
+//		for (int i = 0; i < a.length; i++) {
+//			for (int j = 0; j < a.length; j++) {
+//				System.out.print(a[i][j]+" ");
+//			}
+//			System.out.println("");
+//		}
+		//---------------------------------------------------------
 		
 	}
-	
+	// este metodo genera el grafo
 	public Graph<Integer,Integer,Integer,String> generateGraph() throws IOException{
 		Graph<Integer,Integer,Integer,String> graph = new Graph<>(Graph.INDIRECTED_GRAPH);
-		//Order order = new Order();
-		graph.add(0,"Car "+684+"Av "+ 12);
-		for (int i = 1; i < 5; i++) {
-			graph.add(i,"Car "+((int)(Math.random()*(20)-5))+" Av "+ ((int)Math.random()*(20-5)+5));
+		
+		
+		
+		ArrayList<Order> orders = new ArrayList<>();
+		//--------------- for test ---------------------------------
+		for (int i = 0; i < 5; i++) {
+			orders.add(new Order(i+"", "Orden #"+i, ((int)(Math.random()*(1)-0))+"", i+" Car "+((int)(Math.random()*(20)-5))+" Av "+ ((int)(Math.random()*(20-5)+5))));
+		}
+		//-----------------------------------------------------------
+		for (int i = 0; i < orders.size(); i++) {
+			graph.add(i,orders.get(i).getOderAdress());
 		}
 	
 		FileReader fr = new FileReader(getClass().getResource("/adyacencyMatrix/matrix.txt").getFile());
@@ -120,9 +129,18 @@ public class Routes {
 		
 		return graph;
 	}
-	public Queue<Vertex<Integer,Integer,Integer,String>> generateDeliveryRoute() throws IOException{
+	// Este metodo retorna una cola que indica el orden en que deben de entregarse los pedidos.
+	public Queue<String> generateDeliveryRoute() throws IOException{
 		Graph<Integer,Integer,Integer,String> graph = generateGraph().PRIM(0);
+		Queue<Vertex<Integer,Integer,Integer,String>> queue = graph.BFS(0);
+		Queue<String> toVisit = new LinkedList<>();
 		
-		return graph.BFS(0);
+		for (Iterator<Vertex<Integer, Integer, Integer, String>> iterator = queue.iterator(); iterator.hasNext();) {
+			Vertex<Integer, Integer, Integer, String> vertex = iterator.next();
+			toVisit.add(vertex.getValue());
+			
+		}
+		
+		return toVisit;
 	}
 }
