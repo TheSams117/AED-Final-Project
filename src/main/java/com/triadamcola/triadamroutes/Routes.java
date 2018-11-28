@@ -4,23 +4,23 @@
 package com.triadamcola.triadamroutes;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import com.triadamcola.data_structures.graph.vertex.Vertex;
-import com.triadamcola.data_structures.graph.edge.Edge;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.maps.GeoApiContext;
-import com.google.maps.GeocodingApi;
+import com.triadamcola.data_structures.graph.vertex.Vertex;
+
 import com.google.maps.errors.ApiException;
-import com.google.maps.model.GeocodingResult;
 import com.triadamcola.data_structures.graph.graph.Graph;
 import com.triadamcola.model.Order;
 
@@ -29,14 +29,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * @author ASUS
+ * @author KorKux
  *
  */
 public class Routes {
 	
-	private static final String API_KEY= "AIzaSyAFv-dr1ML_bELibByV1IepG2F_aWmsJ7Y";
-
-	
+	private static final String API_KEY= com.triadamcola.main.TriadamRouteIni.API_KEY;
 
 	/**
 	 * @throws IOException 
@@ -45,58 +43,62 @@ public class Routes {
 	 * 
 	 */
 	public Routes() throws ApiException, InterruptedException, IOException {
-		Graph<Integer,Integer,Integer,String> graph = generateGraph();
-		Queue<Vertex<Integer,Integer,Integer,String>> queue = new LinkedList<>();
-		for (Iterator<Vertex<Integer, Integer, Integer, String>> iterator = queue.iterator(); iterator.hasNext();) {
-			Vertex<Integer, Integer, Integer, String> vertex = iterator.next();
-			System.out.println(vertex.getValue());
+
+	}
+	
+	public void generateAdyacency() {
+		try {
+			FileWriter fileWriter = new FileWriter("/adyacencyMatrix/matrix.txt");
+			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+			ArrayList<Order> orders = Order.getActive();
+			for (int i = 0; i < orders.size(); i++) {
+				for (int j = 0; j < orders.size(); j++) {
+					if (i == 0) {
+						bufferedWriter.write("0 ");
+					}
+					else {
+						bufferedWriter.write(getDistance(orders.get(i).getOrderAdress(), orders.get(j).getOrderAdress())+" ");
+					}
+				}
+				bufferedWriter.write("\n");
+			}
 			
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
 	
-	public Response getDistance(String origin, String destinations) throws IOException {
+	public static int getDistance(String origin, String destinations) throws IOException {
 	    OkHttpClient client = new OkHttpClient();
 	    String url="https://maps.googleapis.com/maps/api/distancematrix/json?origins="+origin+"&destinations="+destinations+"&key="+ API_KEY;
 	    Request request = new Request.Builder().url(url).build();
         Response response = client.newCall(request).execute();
-        System.out.println(response.body().string());
-		return response;
+        JSONParser parser = new JSONParser();
+        Object obj = null;
+		try {
+			obj = parser.parse(response.body().string());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+        JSONObject jsonobj=(JSONObject)obj;
+
+        JSONArray dist=(JSONArray)jsonobj.get("rows");
+        JSONObject obj2 = (JSONObject)dist.get(0);
+        JSONArray disting=(JSONArray)obj2.get("elements");
+        JSONObject obj3 = (JSONObject)disting.get(0);
+        JSONObject obj4= (JSONObject)obj3.get("distance");
+        System.out.println(obj4.get("text"));
+        
+        String data[] = obj4.get("text").toString().split(" ");
+        
+		return (int) Math.round(Double.parseDouble(data[0]));
 	}
 
-	/**
-	 * @param args
-	 * @throws IOException 
-	 * @throws InterruptedException 
-	 * @throws ApiException 
-	 */
-	public static void main(String[] args) throws ApiException, InterruptedException, IOException {
-		//--------------- for test --------------------------------- 
-//		Graph<Integer,Integer,Integer,String> graph = new Routes().generateGraph();
-//		 Queue<String> vertex = new Routes().generateDeliveryRoute();
-//		 for (Iterator<String> iterator = vertex.iterator(); iterator.hasNext();) {
-//			String vertex2 = iterator.next();
-//		
-//			System.out.println(vertex2);
-//			
-//		}
-//		Integer[][] a = graph.getAdjacencyMatrixWeight();
-//		
-//		for (int i = 0; i < a.length; i++) {
-//			for (int j = 0; j < a.length; j++) {
-//				System.out.print(a[i][j]+" ");
-//			}
-//			System.out.println("");
-//		}
-		//---------------------------------------------------------
-		
-	}
+
 	// este metodo genera el grafo
 	public Graph<Integer,Integer,Integer,String> generateGraph() throws IOException{
 		Graph<Integer,Integer,Integer,String> graph = new Graph<>(Graph.INDIRECTED_GRAPH);
-		
-		
-		
 		ArrayList<Order> orders = new ArrayList<>();
 		//--------------- for test ---------------------------------
 		for (int i = 0; i < 5; i++) {
@@ -104,14 +106,10 @@ public class Routes {
 		}
 		//-----------------------------------------------------------
 		for (int i = 0; i < orders.size(); i++) {
-			graph.add(i,orders.get(i).getOderAdress());
+			graph.add(i,orders.get(i).getOrderAdress());
 		}
-	
 		FileReader fr = new FileReader(getClass().getResource("/adyacencyMatrix/matrix.txt").getFile());
-		
 		BufferedReader br = new BufferedReader(fr);
-		
-		
 		String[] line = null;
 		int edgeId = 0;
 		for (int i = 0; i < graph.getNumberOfVertices(); i++) {
@@ -119,16 +117,12 @@ public class Routes {
 			for (int j = 0; j < graph.getNumberOfVertices(); j++) {
 				graph.addEdgeBetweenVertices(i, j, Integer.parseInt(line[j]), 0, edgeId);
 				edgeId+=1;
-				
-			}
-				
+			}		
 		}
-		
-			
-		br.close();	
-		
+		br.close();
 		return graph;
 	}
+	
 	// Este metodo retorna una cola que indica el orden en que deben de entregarse los pedidos.
 	public Queue<String> generateDeliveryRoute() throws IOException{
 		Graph<Integer,Integer,Integer,String> graph = generateGraph().PRIM(0);

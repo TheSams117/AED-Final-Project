@@ -6,6 +6,8 @@ package com.triadamcola.main;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
+import javax.swing.JOptionPane;
+
 import com.triadamcola.model.Connexion;
 import com.triadamcola.model.User;
 
@@ -28,9 +30,15 @@ public class TriadamRouteIni {
 	/**
 	 * 
 	 */
+	public static String API_KEY;
+	
+	/**
+	 * 
+	 */
 	public TriadamRouteIni() {
 		
 		try {
+			API_KEY = JOptionPane.showInputDialog("Ingrese la API KEY");
 			
 			String file = getClass().getResource("/info/connexion.dat").getPath();
 			String[] connexion_data = new String[3];

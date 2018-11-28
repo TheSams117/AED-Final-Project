@@ -18,10 +18,14 @@ import javax.swing.JOptionPane;
  */
 public class Order {
 	
-	private String oderID;
+	private String orderID;
+	
 	private String orderName;
+	
 	private String orderStatus;
-	private String oderAdress;
+	
+	private String orderAdress;
+	
 	/**
 	 * 
 	 */
@@ -29,20 +33,20 @@ public class Order {
 		this("-1","NULL","0","NULL");
 	}
 	
-	public Order(String oderID, String orderName, String orderStatus, String oderAdress) {
+	public Order(String orderID, String orderName, String orderStatus, String orderAdress) {
 		super();
-		this.oderID = oderID;
+		this.orderID = orderID;
 		this.orderName = orderName;
 		this.orderStatus = orderStatus;
-		this.oderAdress = oderAdress;
+		this.orderAdress = orderAdress;
 	}
 
-	public String getOderID() {
-		return oderID;
+	public String getOrderID() {
+		return orderID;
 	}
 
-	public void setOderID(String oderID) {
-		this.oderID = oderID;
+	public void setOrderID(String orderID) {
+		this.orderID = orderID;
 	}
 
 	public String getOrderName() {
@@ -61,18 +65,18 @@ public class Order {
 		this.orderStatus = orderStatus;
 	}
 
-	public String getOderAdress() {
-		return oderAdress;
+	public String getOrderAdress() {
+		return orderAdress;
 	}
 
-	public void setOderAdress(String oderAdress) {
-		this.oderAdress = oderAdress;
+	public void setOrderAdress(String orderAdress) {
+		this.orderAdress = orderAdress;
 	}
 	
 	public String insert() {
 		String msg = "";
 		try {
-			con.execute("INSERT INTO orders VALUE(DEFAULT, ?,?,?)", new String[] {orderName,orderStatus,orderStatus}, false);
+			con.execute("INSERT INTO orders VALUE(DEFAULT, ?,?,?)", new String[] {orderName,orderStatus,orderAdress}, false);
 		} catch (Exception e) {
 			msg = e.getMessage();
 		}
@@ -83,7 +87,7 @@ public class Order {
 		String msg = "";
 	        try
 	        {
-				con.execute("DELATE FROM orders where order_id = ? ", new String[] {oderID}, false);
+				con.execute("DELATE FROM orders where order_id = ? ", new String[] {orderID}, false);
 	        }
 	        catch (SQLException ex)
 	        {
@@ -99,9 +103,9 @@ public class Order {
 	            ResultSet rs = con.execute("SELECT ProCod, ProNom, UniDes, ProEstReg FROM PRODUCTO INNER JOIN UNIDAD ON PRODUCTO.UniCod = UNIDAD.UniCod ORDER BY ProEstReg ASC, ProCod ASC", null, true);
 	            while(rs.next())
 	            {
-	                String code = rs.getString("oder_id");
-	                String name = rs.getString("oder_name");
-	                String status = rs.getString("oder_status");
+	                String code = rs.getString("order_id");
+	                String name = rs.getString("order_name");
+	                String status = rs.getString("order_status");
 	                String adress = rs.getString("order_address");
 	                Order producto = new Order(code, name, status, adress);
 	                productos.add(producto);
@@ -117,7 +121,7 @@ public class Order {
 		 String msg = "";
 	 	try{
 	 	setOrderStatus("1");
-	    con.execute("UPDATE order SET order_status = 1 WHERE oder_id = ?", new String[] {oderID}, false);
+	    con.execute("UPDATE order SET order_status = 1 WHERE order_id = ?", new String[] {orderID}, false);
 	 	} catch (SQLException ex){
     	msg = ex.getMessage();
 	 	}
@@ -129,7 +133,7 @@ public class Order {
         try
         {
           setOrderStatus("0");
-            con.execute("UPDATE order SET order_status = 1 WHERE order_id = ?", new String[] {oderID}, false);
+            con.execute("UPDATE order SET order_status = 1 WHERE order_id = ?", new String[] {orderID}, false);
         }
         catch (SQLException ex)
         {
@@ -138,17 +142,18 @@ public class Order {
         return msg;
     }
     
-    public static ArrayList<ArrayList<String>> getActive() {
-        ArrayList<ArrayList<String>> orders =  new ArrayList<>();
+    public static ArrayList<Order> getActive() {
+        ArrayList<Order> orders =  new ArrayList<>();
         try {        
-            ResultSet result = con.execute("SELECT order_id, order_name FROM orders WHERE order_status = 1 ", null, true);
+            ResultSet result = con.execute("SELECT * FROM orders WHERE order_ = 1 ORDER BY order_name ASC ", null, true);
             while(result.next()) {
                 ArrayList<String> data = new ArrayList<>();
                 String code = result.getString("order_id");
                 String name = result.getString("order_name");
-                data.add(code);
-                data.add(name);
-                orders.add(data);
+                String status = result.getString("order_status");
+                String address = result.getString("order_address");
+                Order order = new Order(code, name, status, address);
+                orders.add(order);
             }
         }
         catch (SQLException ex) {
