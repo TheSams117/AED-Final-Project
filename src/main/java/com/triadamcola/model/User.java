@@ -113,7 +113,6 @@ public class User {
 			ResultSet rs = con.execute("SELECT * FROM users WHERE BINARY user_name = ? AND user_password = MD5(?) AND user_active = 1 ", new String[] {usr, pass}, true);
 			rs.next();
 			if (rs.isLast()) {
-				System.out.println("ENTRA AL PUTO IF");
 				user = new User();
 				user.setUserID(rs.getString("user_id"));
 				user.setUserName(rs.getString("user_name"));
@@ -132,9 +131,8 @@ public class User {
 	public String insert(String pass) {
 		String msg = "";
 		try {
-			con.execute("INSERT INTO users VALUES(DEFAULT, ?, ?, MD5(?), ?, ?, ?", new String[] {userName, userLastName, pass, userDNI, userType, userActive}, false);
-			
-		} catch (SQLException e) {
+			con.execute("INSERT INTO users VALUE(DEFAULT, ?,?,?,?,?,?)", new String[] {userName,userLastName,pass,userDNI,userType,userActive}, false);
+		} catch (Exception e) {
 			msg = e.getMessage();
 		}
 		return msg;
@@ -143,7 +141,7 @@ public class User {
 	public String modify(String pass) {
 		String msg = "";
 		try {
-			con.execute("UPDATE user SET user_name = ?, user_lastname = ?, user_password = MD5(?), user_dni = ?, user_type = ?, user_active = ? WHERE user_id = ?", new String[] {userName, userLastName, pass, userDNI, userType, userActive, userID} , false);
+			con.execute("UPDATE users SET user_name = ?, user_lastname = ?, user_password = MD5(?), user_dni = ?, user_type = ?, user_active = ? WHERE user_id = ?", new String[] {userName, userLastName, pass, userDNI, userType, userActive, userID} , false);
 		} catch (SQLException e) {
 			msg = e.getMessage();
 		}
@@ -153,7 +151,7 @@ public class User {
 	public String remove() {
 		String msg = "";
 		try {
-			con.execute("DELATE FROM users where user_id = ? ", new String[] {userID}, false);
+			con.execute("DELETE FROM users where user_id = ? ", new String[] {userID}, false);
 		} catch (SQLException e) {
 			msg = e.getMessage();
 		}
@@ -201,7 +199,7 @@ public class User {
 	public static String nextID() {
 		String id = "000000000000";
 		try {
-            ResultSet rs = con.execute("SELECT LPAD((SELECT COUNT(*) + 1 FROM users), 6, '0') AS nextCod", null, true);		
+            ResultSet rs = con.execute("SELECT LPAD((SELECT COUNT(*) + 1 FROM users), 6, '0') AS nextID", null, true);		
             rs.next();
             id = rs.getString("nextID");
 		} catch (Exception e) {
@@ -209,5 +207,17 @@ public class User {
 		}
 		return id;
 	}
+	
+	public String getPermission( ) {
+		switch (userType) {
+		case "0":
+			return "Transportador";
+		case "1":
+			return "Vendedor";	
+		default:
+			return "Administrador";
+		}
+	}
+
 		
 }

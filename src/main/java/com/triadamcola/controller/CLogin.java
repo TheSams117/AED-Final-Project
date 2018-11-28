@@ -92,11 +92,11 @@ public class CLogin implements ILogin , Initializable {
 			try {
 				FXMLLoader loader = new FXMLLoader();
 				AnchorPane anchorPane = (AnchorPane) loader.load(getClass().getResource("/fxml/PrincipalView.fxml").openStream());
-				/*CMainViewer cMainViewer = (CMainViewer)loader.getController();			
-				cMainViewer.setUserLogIn(user);*/
 				Scene scene = new Scene(anchorPane);
 		    	Stage stage = (Stage) root.getScene().getWindow();
 		    	stage.setTitle("Triadam Routes");
+
+		    	stage.getIcons().set(0, new Image(getClass().getResource("/img/Triadam Cola.png").openStream()));
 		    	stage.setScene(scene);
 			} catch (IOException e) {
 				e.printStackTrace();

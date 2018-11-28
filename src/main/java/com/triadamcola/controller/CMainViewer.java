@@ -71,7 +71,7 @@ public class CMainViewer implements Initializable{
     void userWiindows(ActionEvent event) {
     	try {
 			FXMLLoader loader = new FXMLLoader();
-			AnchorPane anchorPane = (AnchorPane) loader.load(getClass().getResource("/fxml/StartWindow.fxml").openStream());
+			AnchorPane anchorPane = (AnchorPane) loader.load(getClass().getResource("/fxml/UsersView.fxml").openStream());
 			Scene scene = new Scene(anchorPane);
 	    	Stage stage = (Stage) root.getScene().getWindow();
 	    	stage.setTitle("Ordenes");
@@ -84,16 +84,10 @@ public class CMainViewer implements Initializable{
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
+		String type;
 		labUserName.setText(user.getUserName()+" "+ user.getUserLastName());
-		if (user.getUserType().equals("2")) {
-			String type = "Administrador";
-		}
-		else {
-			String type = "Invitado";
-		}
-		labUserRol.setText(user.getUserType());
-		
+		labUserRol.setText(user.getPermission());
+
 	}
 
 }

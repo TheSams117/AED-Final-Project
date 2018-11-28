@@ -11,16 +11,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="500.0" prefWidth="650.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+<AnchorPane fx:id="root" prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.triadamcola.controller.CUsers">
    <children>
       <AnchorPane layoutX="36.0" layoutY="128.0" prefHeight="342.0" prefWidth="409.0">
          <children>
-            <TableView prefHeight="307.0" prefWidth="409.0">
+            <TableView fx:id="tableView" editable="true" fixedCellSize="0.0" prefHeight="307.0" prefWidth="409.0">
               <columns>
-                <TableColumn prefWidth="122.0" text="Código" />
-                <TableColumn minWidth="0.0" prefWidth="145.0" text="Nombre" />
-                  <TableColumn prefWidth="141.0" text="Estado" />
+                <TableColumn fx:id="idColum" prefWidth="55.0" text="Código" />
+                <TableColumn fx:id="nameColum" minWidth="0.0" prefWidth="86.0" text="Nombres" />
+                  <TableColumn fx:id="lastNameColum" prefWidth="74.0" text="Apellidos" />
+                  <TableColumn fx:id="dniColum" prefWidth="68.0" text="Cédula" />
+                  <TableColumn fx:id="permissionColum" prefWidth="72.0" text="Permisos" />
+                  <TableColumn fx:id="activeColum" minWidth="0.0" prefWidth="53.0" text="Activo" />
               </columns>
             </TableView>
          </children>
@@ -36,64 +38,64 @@
             <Font name="Comic Sans MS" size="20.0" />
          </font>
       </Text>
-      <TextField layoutX="123.0" layoutY="82.0" prefHeight="28.0" prefWidth="208.0" />
-      <Button layoutX="354.0" layoutY="83.0" mnemonicParsing="false">
+      <TextField fx:id="txtSearch" layoutX="123.0" layoutY="82.0" prefHeight="28.0" prefWidth="208.0" promptText="Ingreseo el Nombre a Buscar" />
+      <Button fx:id="btnSearch" layoutX="354.0" layoutY="83.0" mnemonicParsing="false" onAction="#searchUser">
          <graphic>
             <ImageView fitHeight="19.0" fitWidth="21.0">
                <image>
-                  <Image url="@../img/lupaBuscar.png" />
+                  <Image url="/img/lupaBuscar.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
       <AnchorPane layoutX="455.0" layoutY="128.0" prefHeight="170.0" prefWidth="187.0" style="-fx-background-color: gray;">
          <children>
-            <Button layoutX="11.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="162.0" text="INSERTAR">
+            <Button fx:id="btnInsert" layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onAction="#insertUser" prefHeight="36.0" prefWidth="162.0" text="INSERTAR">
                <font>
                   <Font name="Comic Sans MS" size="17.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="19.0">
                      <image>
-                        <Image url="@../img/signoMas.png" />
+                        <Image url="/img/signoMas.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button layoutX="11.0" layoutY="67.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="162.0" text="MODIFICAR">
+            <Button fx:id="btnModify" layoutX="11.0" layoutY="67.0" mnemonicParsing="false" onAction="#modifyUser" prefHeight="36.0" prefWidth="162.0" text="MODIFICAR">
                <font>
                   <Font name="Comic Sans MS" size="17.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="30.0">
                      <image>
-                        <Image url="@../img/modificar.png" />
+                        <Image url="/img/modificar.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button layoutX="11.0" layoutY="120.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="162.0" text="ELIMINAR">
+            <Button fx:id="btnDelete" layoutX="11.0" layoutY="120.0" mnemonicParsing="false" onAction="#deleteUser" prefHeight="36.0" prefWidth="162.0" text="ELIMINAR">
                <font>
                   <Font name="Comic Sans MS" size="17.0" />
                </font>
                <graphic>
                   <ImageView fitHeight="21.0" fitWidth="27.0">
                      <image>
-                        <Image url="@../img/eliminar.png" />
+                        <Image url="/img/eliminar.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
          </children>
       </AnchorPane>
-      <Button layoutX="455.0" layoutY="333.0" mnemonicParsing="false" prefHeight="101.0" prefWidth="187.0" text="VOLVER AL MENU">
+      <Button fx:id="btnBack" layoutX="455.0" layoutY="333.0" mnemonicParsing="false" onAction="#back" prefHeight="101.0" prefWidth="187.0" text="VOLVER AL MENU">
          <font>
             <Font name="Comic Sans MS" size="12.0" />
          </font>
          <graphic>
             <ImageView fitHeight="30.0" fitWidth="44.0">
                <image>
-                  <Image url="@../img/flecha.png" />
+                  <Image url="/img/flecha.png" />
                </image>
             </ImageView>
          </graphic>

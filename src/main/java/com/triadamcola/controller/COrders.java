@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Dialog;
 
 import com.google.maps.errors.ApiException;
@@ -63,6 +64,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -156,21 +158,19 @@ public class COrders implements Initializable {
     	
 
     	Optional<ArrayList<String>> result = dialog.showAndWait();
-    	/*try {*/
     		String name = result.get().get(0);
     		String address = result.get().get(1);
     		Order order = new Order();
     		order.setOrderName(name);
     		order.setOrderAdress(address);
     		order.setOrderStatus("0");
-    		order.setOrderID(order.nextID());
+    		String aux = order.nextID();
+    		String id = order.nextID().substring(aux.lastIndexOf("0"), aux.length());
+    		order.setOrderID(id);
     		order.insert();
     		
     		tableView.getItems().add(order);
     
-		/*} catch (Exception e) {
-			
-		}*/
     }
 
     @FXML
@@ -253,7 +253,30 @@ public class COrders implements Initializable {
 					e.printStackTrace();
 				}
             } else {
-                System.out.println("Please open a browser and go to "+ url);
+            	Alert alert = new Alert(AlertType.ERROR);
+            	alert.setTitle("URL Error");
+            	alert.setHeaderText("No se pudo Abrir la URL");
+            	alert.setContentText("Copia la siguiente URL y pegala en un navegador");
+            	
+            	Label label = new Label("URL:");
+            	TextArea textArea = new TextArea(url);
+            	textArea.setEditable(false);
+            	textArea.setWrapText(true);
+            	
+            	textArea.setMaxWidth(Double.MAX_VALUE);
+            	textArea.setMaxHeight(Double.MAX_VALUE);
+            	GridPane.setVgrow(textArea, Priority.ALWAYS);
+            	GridPane.setHgrow(textArea, Priority.ALWAYS);
+
+            	GridPane expContent = new GridPane();
+            	expContent.setMaxWidth(Double.MAX_VALUE);
+            	expContent.add(label, 0, 0);
+            	expContent.add(textArea, 0, 1);
+
+            	// Set expandable Exception into the dialog pane.
+            	alert.getDialogPane().setExpandableContent(expContent);
+
+            	alert.showAndWait();
             }
         }
     }
@@ -266,7 +289,7 @@ public class COrders implements Initializable {
 	    nameColum.setCellValueFactory(new PropertyValueFactory<Order, String>("orderName"));
 	    statusColum.setCellValueFactory(new PropertyValueFactory<Order, String>("orderStatus"));
 	    addressColum.setCellValueFactory(new PropertyValueFactory<Order, String>("orderAdress"));
-	    labUserName.setText(user.getUserName()+ " "+user.getUserActive());
+	    labUserName.setText(user.getUserName()+ " "+user.getUserLastName());
 	}
 
 }
