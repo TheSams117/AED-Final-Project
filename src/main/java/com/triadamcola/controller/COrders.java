@@ -69,6 +69,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.Pair;
 import javafx.application.Platform;
+import static com.triadamcola.main.TriadamRouteIni.user;
 
 
 public class COrders implements Initializable {
@@ -198,29 +199,25 @@ public class COrders implements Initializable {
 			Queue<String> orders = routes.generateDeliveryRoute();
 			Queue<String> orders2 = routes.generateDeliveryRoute();
 			
-			for (int i = 0; i < orders2.size(); i++) {
-				System.out.println(orders2.poll());
-			}
-
-			for (int i = 0; i < orders.size(); i++) {
-				if (i == orders.size() -2 ) {
-					url += "&destination="+orders.poll();
-				}
-				else if (i == 0 && orders.size() > 1) {
+			System.out.println(orders.size());
+			
+			int size = orders.size();
+	
+			for (int i = 0; !orders.isEmpty(); i++)
+			{
+				if (i == 0 && size > 1) {
 					url += orders.poll()+"&waypoints=";
 				}
-				else {
-					url += orders.poll();
-					
-					if (!aux) {
-						url += "|";
-					}
+				else if (i == size -1 ) {
+					url += "&destination="+orders.poll();
 				}
-				if (i == orders.size()-3) {
-					aux = true;
+				
+				else {
+					url += orders.poll()+"|";
 				}
     	}
 			url += "&region=CO&key="+com.triadamcola.main.TriadamRouteIni.API_KEY;
+			System.out.println(url);
 		} catch (ApiException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
@@ -228,9 +225,7 @@ public class COrders implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	    System.out.println(url.charAt(50));
-	    System.out.println(url.charAt(51));
-	    System.out.println(url.charAt(52));
+
 	    
 	    if(!Desktop.isDesktopSupported()){
             Desktop desktop = Desktop.getDesktop();
@@ -271,6 +266,7 @@ public class COrders implements Initializable {
 	    nameColum.setCellValueFactory(new PropertyValueFactory<Order, String>("orderName"));
 	    statusColum.setCellValueFactory(new PropertyValueFactory<Order, String>("orderStatus"));
 	    addressColum.setCellValueFactory(new PropertyValueFactory<Order, String>("orderAdress"));
+	    labUserName.setText(user.getUserName()+ " "+user.getUserActive());
 	}
 
 }

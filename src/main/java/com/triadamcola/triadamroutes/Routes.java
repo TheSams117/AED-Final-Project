@@ -44,22 +44,26 @@ public class Routes {
 	 * 
 	 */
 	public Routes() throws ApiException, InterruptedException, IOException {
-		generateAdyacency();
+		
 	}
 	
 	public void generateAdyacency() {
 		try {
 			File file = new File(getClass().getResource("/adyacencyMatrix/matrix.txt").getFile());
+			//System.out.println(getClass().getResource("/adyacencyMatrix/matrix.txt").getFile());
 			FileWriter fileWriter = new FileWriter(file);
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			ArrayList<Order> orders = Order.getActive();
 			for (int i = 0; i < orders.size(); i++) {
 				for (int j = 0; j < orders.size(); j++) {
 					if (i == j) {
-						bufferedWriter.write("0 ");
+						bufferedWriter.write("0");
 					}
 					else {
-						bufferedWriter.write(getDistance(orders.get(i).getOrderAdress(), orders.get(j).getOrderAdress())+" ");
+						bufferedWriter.write(""+getDistance(orders.get(i).getOrderAdress(), orders.get(j).getOrderAdress()));
+					}
+					if (j != orders.size()-1) {
+						bufferedWriter.write(" ");
 					}
 				}
 				bufferedWriter.write("\n");
@@ -75,7 +79,7 @@ public class Routes {
 	
 	public static int getDistance(String origin, String destinations) throws IOException {
 	    OkHttpClient client = new OkHttpClient();
-	    String url="https://maps.googleapis.com/maps/api/distancematrix/json?origins="+origin+"&destinations="+destinations+"&key="+ "AIzaSyAFv-dr1ML_bELibByV1IepG2F_aWmsJ7Y"+"&region=CO";
+	    String url="https://maps.googleapis.com/maps/api/distancematrix/json?origins="+origin+"&destinations="+destinations+"&key="+ API_KEY+"&region=CO";
 	    Request request = new Request.Builder().url(url).build();
         Response response = client.newCall(request).execute();
         JSONParser parser = new JSONParser();
@@ -107,16 +111,19 @@ public class Routes {
 		for (int i = 0; i < orders.size(); i++) {
 			graph.add(i,orders.get(i).getOrderAdress());
 		}
-		FileReader fr = new FileReader(getClass().getResource("/adyacencyMatrix/matrix.txt").getFile().toString());
+		FileReader fr = new FileReader(getClass().getResource("/adyacencyMatrix/matrix.txt").getFile());
+//		System.out.println(getClass().getResource("/adyacencyMatrix/matrix.txt").getFile());
 		BufferedReader br = new BufferedReader(fr);
 		String[] line = null;
 		int edgeId = 0;
 		for (int i = 0; i < graph.getNumberOfVertices(); i++) {
 			line = br.readLine().split(" ");
 			for (int j = 0; j < graph.getNumberOfVertices(); j++) {
+				System.out.print(line[j]+" ");
 				graph.addEdgeBetweenVertices(i, j, Integer.parseInt(line[j]), 0, edgeId);
 				edgeId+=1;
-			}		
+			}
+			System.out.println();
 		}
 		br.close();
 		return graph;
