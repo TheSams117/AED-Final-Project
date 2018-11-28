@@ -95,13 +95,5 @@ public class CMainViewer implements Initializable{
 		labUserRol.setText(user.getUserType());
 		
 	}
-/*
-	public User getUserLogIn() {
-		return userLogIn;
-	}
-
-	public void setUserLogIn(User userLogIn) {
-		this.userLogIn = userLogIn;
-	}*/
 
 }

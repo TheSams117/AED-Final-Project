@@ -5,6 +5,7 @@ package com.triadamcola.triadamroutes;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -43,17 +44,18 @@ public class Routes {
 	 * 
 	 */
 	public Routes() throws ApiException, InterruptedException, IOException {
-
+		generateAdyacency();
 	}
 	
 	public void generateAdyacency() {
 		try {
-			FileWriter fileWriter = new FileWriter("/adyacencyMatrix/matrix.txt");
+			File file = new File(getClass().getResource("/adyacencyMatrix/matrix.txt").getFile());
+			FileWriter fileWriter = new FileWriter(file);
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 			ArrayList<Order> orders = Order.getActive();
 			for (int i = 0; i < orders.size(); i++) {
 				for (int j = 0; j < orders.size(); j++) {
-					if (i == 0) {
+					if (i == j) {
 						bufferedWriter.write("0 ");
 					}
 					else {
@@ -62,6 +64,8 @@ public class Routes {
 				}
 				bufferedWriter.write("\n");
 			}
+			bufferedWriter.close();
+			fileWriter.close();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -71,7 +75,7 @@ public class Routes {
 	
 	public static int getDistance(String origin, String destinations) throws IOException {
 	    OkHttpClient client = new OkHttpClient();
-	    String url="https://maps.googleapis.com/maps/api/distancematrix/json?origins="+origin+"&destinations="+destinations+"&key="+ API_KEY;
+	    String url="https://maps.googleapis.com/maps/api/distancematrix/json?origins="+origin+"&destinations="+destinations+"&key="+ "AIzaSyAFv-dr1ML_bELibByV1IepG2F_aWmsJ7Y"+"&region=CO";
 	    Request request = new Request.Builder().url(url).build();
         Response response = client.newCall(request).execute();
         JSONParser parser = new JSONParser();
@@ -81,14 +85,14 @@ public class Routes {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-        JSONObject jsonobj=(JSONObject)obj;
+        JSONObject jsonobj = (JSONObject) obj;
 
-        JSONArray dist=(JSONArray)jsonobj.get("rows");
+        JSONArray dist = (JSONArray)jsonobj.get("rows");
         JSONObject obj2 = (JSONObject)dist.get(0);
-        JSONArray disting=(JSONArray)obj2.get("elements");
+        JSONArray disting = (JSONArray)obj2.get("elements");
         JSONObject obj3 = (JSONObject)disting.get(0);
         JSONObject obj4= (JSONObject)obj3.get("distance");
-        System.out.println(obj4.get("text"));
+
         
         String data[] = obj4.get("text").toString().split(" ");
         
@@ -99,16 +103,11 @@ public class Routes {
 	// este metodo genera el grafo
 	public Graph<Integer,Integer,Integer,String> generateGraph() throws IOException{
 		Graph<Integer,Integer,Integer,String> graph = new Graph<>(Graph.INDIRECTED_GRAPH);
-		ArrayList<Order> orders = new ArrayList<>();
-		//--------------- for test ---------------------------------
-		for (int i = 0; i < 5; i++) {
-			orders.add(new Order(i+"", "Orden #"+i, ((int)(Math.random()*(1)-0))+"", i+" Car "+((int)(Math.random()*(20)-5))+" Av "+ ((int)(Math.random()*(20-5)+5))));
-		}
-		//-----------------------------------------------------------
+		ArrayList<Order> orders = Order.getActive();
 		for (int i = 0; i < orders.size(); i++) {
 			graph.add(i,orders.get(i).getOrderAdress());
 		}
-		FileReader fr = new FileReader(getClass().getResource("/adyacencyMatrix/matrix.txt").getFile());
+		FileReader fr = new FileReader(getClass().getResource("/adyacencyMatrix/matrix.txt").getFile().toString());
 		BufferedReader br = new BufferedReader(fr);
 		String[] line = null;
 		int edgeId = 0;
@@ -136,5 +135,9 @@ public class Routes {
 		}
 		
 		return toVisit;
+	}
+	
+	public static void main(String[] args) throws ApiException, InterruptedException, IOException {
+		new Routes();
 	}
 }

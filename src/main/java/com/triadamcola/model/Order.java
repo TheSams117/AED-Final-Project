@@ -87,7 +87,7 @@ public class Order {
 		String msg = "";
 	        try
 	        {
-				con.execute("DELATE FROM orders where order_id = ? ", new String[] {orderID}, false);
+				con.execute("DELETE FROM orders where order_id = ?", new String[] {orderID}, false);
 	        }
 	        catch (SQLException ex)
 	        {
@@ -146,7 +146,7 @@ public class Order {
     public static ArrayList<Order> getActive() {
         ArrayList<Order> orders =  new ArrayList<>();
         try {        
-            ResultSet result = con.execute("SELECT * FROM orders WHERE order_ = 1 ORDER BY order_name ASC ", null, true);
+            ResultSet result = con.execute("SELECT * FROM orders WHERE order_status = 0 ORDER BY order_name ASC ", null, true);
             while(result.next()) {
                 ArrayList<String> data = new ArrayList<>();
                 String code = result.getString("order_id");
@@ -162,4 +162,16 @@ public class Order {
         }
         return orders;
     }
+    
+	public static String nextID() {
+		String id = "000000000000";
+		try {
+            ResultSet rs = con.execute("SELECT LPAD((SELECT COUNT(*) + 1 FROM orders), 6, '0') AS nextCod", null, true);		
+            rs.next();
+            id = rs.getString("nextID");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return id;
+	}
 }
