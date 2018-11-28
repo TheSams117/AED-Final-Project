@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <SplitPane disable="true" dividerPositions="0.5" layoutX="-1.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="137.0" prefWidth="265.0">
+               <children>
+                  <ImageView fitHeight="253.0" fitWidth="600.0" layoutX="1.0" layoutY="-3.0">
+                     <image>
+                        <Image url="@../img/fondo.png" />
+                     </image>
+                  </ImageView>
+                  <Text layoutX="23.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CONTROL DE RUTAS">
+                     <font>
+                        <Font name="Comic Sans MS" size="27.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="386.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido(a)">
+                     <font>
+                        <Font name="Comic Sans MS" size="16.0" />
+                     </font>
+                  </Text>
+                  <Label layoutX="386.0" layoutY="44.0" text="UserName">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="94.0" fitWidth="99.0" layoutX="490.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/avatarPrincipal.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="242.0" prefWidth="596.0" style="-fx-background-color: gray;">
+               <children>
+                  <Button layoutX="22.0" layoutY="40.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="174.0" style="-fx-background-color: green;" text="USUARIOS" textFill="WHITE">
+                     <effect>
+                        <Blend />
+                     </effect>
+                     <font>
+                        <Font name="Comic Sans MS" size="16.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="42.0" fitWidth="55.0">
+                           <image>
+                              <Image url="@../img/avatarBoton.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="22.0" layoutY="160.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="174.0" style="-fx-background-color: green;" text="ORDENES" textFill="WHITE">
+                     <effect>
+                        <Blend />
+                     </effect>
+                     <font>
+                        <Font name="Comic Sans MS" size="16.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="42.0" fitWidth="55.0">
+                           <image>
+                              <Image url="@../img/ordenes.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button layoutX="299.0" layoutY="88.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="249.0" style="-fx-background-color: green;" text="CERRAR SESIÓN" textFill="WHITE">
+                     <effect>
+                        <Blend />
+                     </effect>
+                     <font>
+                        <Font name="Comic Sans MS" size="16.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="53.0">
+                           <image>
+                              <Image url="@../img/cerrarSesion.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+               <effect>
+                  <Blend />
+               </effect>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
