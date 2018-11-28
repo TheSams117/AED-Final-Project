@@ -17,14 +17,11 @@
                <children>
                   <TableView fx:id="tableView" layoutX="11.0" layoutY="8.0" prefHeight="450.0" prefWidth="258.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="26.0" resizable="false" text="ID" />
-                      <TableColumn maxWidth="1.7976931348623157E308" prefWidth="88.0" resizable="false" text="Nombre" />
-                        <TableColumn maxWidth="1.7976931348623157E308" prefWidth="50.0" resizable="false" text="Estado" />
-                        <TableColumn maxWidth="1.7976931348623157E308" prefWidth="156.0" resizable="false" text="Dirección" />
+                      <TableColumn fx:id="idColum" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="26.0" resizable="false" text="ID" />
+                      <TableColumn fx:id="nameColum" maxWidth="1.7976931348623157E308" prefWidth="88.0" resizable="false" text="Nombre" />
+                        <TableColumn fx:id="statusColum" maxWidth="1.7976931348623157E308" prefWidth="50.0" resizable="false" text="Estado" />
+                        <TableColumn fx:id="addressColum" maxWidth="1.7976931348623157E308" prefWidth="156.0" resizable="false" text="Dirección" />
                     </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
                   </TableView>
                   <Button fx:id="btnAddOrder" layoutX="14.0" layoutY="463.0" mnemonicParsing="false" onAction="#addOrder" prefHeight="25.0" prefWidth="108.0" text="Agregar Pedido" />
                   <Button fx:id="btnDelateOrder" layoutX="136.0" layoutY="463.0" mnemonicParsing="false" onAction="#delateOrder" prefHeight="25.0" prefWidth="108.0" text="Eliminar Pedido" />

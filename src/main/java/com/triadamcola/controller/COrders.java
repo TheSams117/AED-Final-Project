@@ -16,13 +16,26 @@ import java.util.ResourceBundle;
 
 import javax.swing.text.TabableView;
 import javafx.collections.FXCollections;
-
-
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class COrders implements Initializable {
 	
     @FXML
     private TableView<Order> tableView;
+    
+
+    @FXML
+    private TableColumn<Order, String> idColum;
+
+    @FXML
+    private TableColumn<Order, String> nameColum;
+
+    @FXML
+    private TableColumn<Order, String> statusColum;
+
+    @FXML
+    private TableColumn<Order, String> addressColum;
 
     @FXML
     private Button btnAddOrder;
@@ -55,6 +68,10 @@ public class COrders implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		ObservableList<Order> observableList =  FXCollections.observableArrayList(Order.getOrders());
 		tableView.setItems(observableList);
+	    idColum.setCellValueFactory(new PropertyValueFactory<Order, String>("orderID"));
+	    nameColum.setCellValueFactory(new PropertyValueFactory<Order, String>("orderName"));
+	    statusColum.setCellValueFactory(new PropertyValueFactory<Order, String>("orderStatus"));
+	    addressColum.setCellValueFactory(new PropertyValueFactory<Order, String>("orderAdress"));
 		
 	}
 
