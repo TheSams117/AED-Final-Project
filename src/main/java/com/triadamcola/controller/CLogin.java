@@ -8,19 +8,29 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Dialog;
+import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
+
 
 
 import static com.triadamcola.main.TriadamRouteIni.con;
 import static com.triadamcola.main.TriadamRouteIni.user;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import com.triadamcola.model.User;
 
 import javafx.event.ActionEvent;
-public class CLogin implements ILogin {
+public class CLogin implements ILogin , Initializable {
 
     @FXML
     private AnchorPane root;
@@ -50,6 +60,17 @@ public class CLogin implements ILogin {
     void exit(ActionEvent event) {
     	exit();
     }
+    
+
+    @FXML
+    void aboutOur(ActionEvent event) {
+    	Alert alert = new Alert(AlertType.INFORMATION);
+    	alert.setTitle("Acerca de");
+    	alert.setHeaderText(null);
+    	alert.setContentText("Triadam Routes\nSistema de control de rutas");
+    	alert.showAndWait();
+    }
+
 
     @FXML
     void login(ActionEvent event) {
@@ -63,26 +84,29 @@ public class CLogin implements ILogin {
     	User u = User.validate(userName, password);
     	if(user != null) {
     		user = u;
-    		nextWindow();
+    		nextWindow(user);
     	}
 	}
 	
-	 private void nextWindow() {
+	private void nextWindow(User user) {
 			try {
 				FXMLLoader loader = new FXMLLoader();
-				AnchorPane anchorPane = (AnchorPane) loader.load(getClass().getResource("/fxml/StartWindow.fxml").openStream());
+				AnchorPane anchorPane = (AnchorPane) loader.load(getClass().getResource("/fxml/PrincipalView.fxml").openStream());
+				/*CMainViewer cMainViewer = (CMainViewer)loader.getController();			
+				cMainViewer.setUserLogIn(user);*/
 				Scene scene = new Scene(anchorPane);
 		    	Stage stage = (Stage) root.getScene().getWindow();
+		    	stage.setTitle("Triadam Routes");
 		    	stage.setScene(scene);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	    }    
+	}    
 	
 
 	@Override
 	public void settings() {
-				
+		
 	}
 
 	@Override
@@ -91,4 +115,17 @@ public class CLogin implements ILogin {
 		con.disconnect();
 	}
 
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		  Image openIcon = new Image(getClass().getResourceAsStream("/img/configure.png"));
+		  ImageView openView = new ImageView(openIcon);
+		  menuItemSettings.setGraphic(openView);
+		  
+		  openIcon = new Image(getClass().getResourceAsStream("/img/salir.png"));
+		  openView = new ImageView(openIcon);
+		  menuItemQuit.setGraphic(openView);
+
+	}
+	
 }

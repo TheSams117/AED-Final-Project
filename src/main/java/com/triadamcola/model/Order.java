@@ -97,24 +97,24 @@ public class Order {
 	 }
 	  
 	 public static ArrayList<Order> getOrders() {
-	        ArrayList<Order> productos = new ArrayList<>();
+	        ArrayList<Order> orders = new ArrayList<>();
 	        try
 	        {
-	            ResultSet rs = con.execute("SELECT ProCod, ProNom, UniDes, ProEstReg FROM PRODUCTO INNER JOIN UNIDAD ON PRODUCTO.UniCod = UNIDAD.UniCod ORDER BY ProEstReg ASC, ProCod ASC", null, true);
+	            ResultSet rs = con.execute("SELECT * FROM orders ORDER BY order_name", null, true);
 	            while(rs.next())
 	            {
 	                String code = rs.getString("order_id");
 	                String name = rs.getString("order_name");
 	                String status = rs.getString("order_status");
 	                String adress = rs.getString("order_address");
-	                Order producto = new Order(code, name, status, adress);
-	                productos.add(producto);
+	                Order order = new Order(code, name, status, adress);
+	                orders.add(order);
 	            }
 	        }
 	        catch (SQLException ex) {
 	            JOptionPane.showMessageDialog(null, "Error de conexión a la base de datos.\nConfigure la conexión correctamente", "ERROR", JOptionPane.ERROR_MESSAGE);
 	        }
-	        return productos;
+	        return orders;
 	 }
 	  
 	 public String active() {
@@ -141,6 +141,7 @@ public class Order {
         }
         return msg;
     }
+    
     
     public static ArrayList<Order> getActive() {
         ArrayList<Order> orders =  new ArrayList<>();

@@ -29,8 +29,8 @@ and open the template in the editor.
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <PasswordField fx:id="passUserPassword" layoutX="10.0" layoutY="105.0" prefHeight="25.0" prefWidth="180.0" promptText="Ingrese su contraseña" />
             <TextField fx:id="txtUserName" layoutX="10.0" layoutY="40.0" prefHeight="25.0" prefWidth="180.0" promptText="Ingrese su nombre de usuario" />
+            <PasswordField fx:id="passUserPassword" layoutX="10.0" layoutY="105.0" prefHeight="25.0" prefWidth="180.0" promptText="Ingrese su contraseña" />
             <Label layoutX="10.0" layoutY="80.0" text="Contraseña">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -42,13 +42,13 @@ and open the template in the editor.
         <menus>
           <Menu mnemonicParsing="false" text="Archivo">
             <items>
-              <MenuItem fx:id="menuItemSettings" mnemonicParsing="false" text="Configuración" />
-                  <MenuItem fx:id="menuItemQuit" mnemonicParsing="false" text="Salir" />
+              <MenuItem fx:id="menuItemSettings" mnemonicParsing="false" onAction="#settings" text="Configuración" />
+                  <MenuItem fx:id="menuItemQuit" mnemonicParsing="false" onAction="#exit" text="Salir" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Ayuda">
             <items>
-              <MenuItem fx:id="menuItemAbout" mnemonicParsing="false" text="Acerca De" />
+              <MenuItem fx:id="menuItemAbout" mnemonicParsing="false" onAction="#aboutOur" text="Acerca De" />
             </items>
           </Menu>
         </menus>
@@ -60,17 +60,16 @@ and open the template in the editor.
       </Text>
       <ImageView fitHeight="128.0" fitWidth="135.0" layoutX="70.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="/img/LoginUser.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="btnQuit" layoutX="39.0" layoutY="447.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="180.0" text="SALIR">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Button>
+            <Image url="@../img/LoginUser.png" />
+         </image></ImageView>
       <Button fx:id="btnLogin" layoutX="39.0" layoutY="395.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="180.0" text="INGRESAR">
          <font>
             <Font name="System Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnQuit" layoutX="39.0" layoutY="447.0" mnemonicParsing="false" onAction="#exit" prefHeight="25.0" prefWidth="180.0" text="SALIR">
+         <font>
+            <Font name="System Bold" size="18.0" />
          </font>
       </Button>
    </children>

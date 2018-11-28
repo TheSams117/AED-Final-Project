@@ -10,15 +10,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" prefHeight="373.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.triadamcola.controller.CMainViewer">
    <children>
-      <SplitPane disable="true" dividerPositions="0.5" layoutX="-1.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.5" layoutX="-1.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="500.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="137.0" prefWidth="265.0">
                <children>
-                  <ImageView fitHeight="253.0" fitWidth="600.0" layoutX="1.0" layoutY="-3.0">
+                  <ImageView fitHeight="262.0" fitWidth="608.0" layoutX="-7.0" layoutY="-3.0">
                      <image>
-                        <Image url="@../img/fondo.png" />
+                        <Image url="/img/fondo.png" />
                      </image>
                   </ImageView>
                   <Text layoutX="23.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CONTROL DE RUTAS">
@@ -31,21 +31,31 @@
                         <Font name="Comic Sans MS" size="16.0" />
                      </font>
                   </Text>
-                  <Label layoutX="386.0" layoutY="44.0" text="UserName">
+                  <ImageView fitHeight="94.0" fitWidth="99.0" layoutX="490.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="/img/avatarPrincipal.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="112.0" fitWidth="147.0" layoutX="88.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="/img/Triadam Cola.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="labUserName" layoutX="386.0" layoutY="44.0" text="UserName">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="94.0" fitWidth="99.0" layoutX="490.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/avatarPrincipal.png" />
-                     </image>
-                  </ImageView>
+                  <Label fx:id="labUserRol" layoutX="386.0" layoutY="69.0" text="UserRol">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="242.0" prefWidth="596.0" style="-fx-background-color: gray;">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="114.0" prefWidth="598.0" style="-fx-background-color: gray;">
                <children>
-                  <Button layoutX="22.0" layoutY="40.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="174.0" style="-fx-background-color: green;" text="USUARIOS" textFill="WHITE">
+                  <Button fx:id="btnUsers" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#userWiindows" prefHeight="60.0" prefWidth="220.0" style="-fx-background-color: green;" text="USUARIOS" textFill="WHITE">
                      <effect>
                         <Blend />
                      </effect>
@@ -55,12 +65,12 @@
                      <graphic>
                         <ImageView fitHeight="42.0" fitWidth="55.0">
                            <image>
-                              <Image url="@../img/avatarBoton.png" />
+                              <Image url="/img/avatarBoton.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="22.0" layoutY="160.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="174.0" style="-fx-background-color: green;" text="ORDENES" textFill="WHITE">
+                  <Button fx:id="btnOrders" layoutX="364.0" layoutY="14.0" mnemonicParsing="false" onAction="#ordersWindows" prefHeight="60.0" prefWidth="220.0" style="-fx-background-color: green;" text="ORDENES" textFill="WHITE">
                      <effect>
                         <Blend />
                      </effect>
@@ -70,12 +80,12 @@
                      <graphic>
                         <ImageView fitHeight="42.0" fitWidth="55.0">
                            <image>
-                              <Image url="@../img/ordenes.png" />
+                              <Image url="/img/ordenes.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button layoutX="299.0" layoutY="88.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="249.0" style="-fx-background-color: green;" text="CERRAR SESIÓN" textFill="WHITE">
+                  <Button fx:id="btnLogOut" layoutX="189.0" layoutY="91.0" mnemonicParsing="false" onAction="#logOut" prefHeight="60.0" prefWidth="220.0" style="-fx-background-color: green;" text="CERRAR SESIÓN" textFill="WHITE">
                      <effect>
                         <Blend />
                      </effect>
@@ -85,7 +95,7 @@
                      <graphic>
                         <ImageView fitHeight="50.0" fitWidth="53.0">
                            <image>
-                              <Image url="@../img/cerrarSesion.png" />
+                              <Image url="/img/cerrarSesion.png" />
                            </image>
                         </ImageView>
                      </graphic>

@@ -126,7 +126,7 @@ public class User {
 			exception.printStackTrace();			
 		}
 		
-		return null;
+		return user;
 	}
 	
 	public String insert(String pass) {
