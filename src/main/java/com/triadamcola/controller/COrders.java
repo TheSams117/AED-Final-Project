@@ -1,6 +1,7 @@
 package com.triadamcola.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Label;
@@ -31,16 +32,23 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.application.Platform;
 
 
 public class COrders implements Initializable {
+	
+    @FXML
+    private AnchorPane root;
 	
     @FXML
     private TableView<Order> tableView;
@@ -58,7 +66,6 @@ public class COrders implements Initializable {
     @FXML
     private TableColumn<Order, String> addressColum;
 
-
     @FXML
     private Button btnDeliverOrder;
 
@@ -66,7 +73,7 @@ public class COrders implements Initializable {
     private Button btnAddOrder;
 
     @FXML
-    private Button btnDelateOrder;
+    private Button btnDeleteOrder;
 
     @FXML
     private Button btnBack;
@@ -78,7 +85,8 @@ public class COrders implements Initializable {
     private Button btnSearch;
 
     @FXML
-    private Button btnAddOrder1;
+    private Button btnModify;
+
 
     @FXML
     void addOrder(ActionEvent event) {
@@ -141,8 +149,7 @@ public class COrders implements Initializable {
     		order.setOrderAdress(address);
     		order.setOrderStatus("0");
     		String aux = order.nextID();
-    		String id = order.nextID().substring(aux.lastIndexOf("0"), aux.length());
-    		order.setOrderID(id);
+    		order.setOrderID(aux);
     		order.insert();
     		
     		tableView.getItems().add(order);
@@ -216,8 +223,6 @@ public class COrders implements Initializable {
 					e.printStackTrace();
 				}
             } else if (osName.startsWith("Mac OS X")) {
-                // Runtime.getRuntime().exec("open -a safari " + url);
-                // Runtime.getRuntime().exec("open " + url + "/index.html");
                 try {
 					Runtime.getRuntime().exec("open " + url);
 				} catch (IOException e) {
@@ -255,7 +260,17 @@ public class COrders implements Initializable {
     
     @FXML
     void back(ActionEvent event) {
-
+    	try {
+			FXMLLoader loader = new FXMLLoader();
+			AnchorPane anchorPane = (AnchorPane) loader.load(getClass().getResource("/fxml/PrincipalView.fxml").openStream());
+			Scene scene = new Scene(anchorPane);
+	    	Stage stage = (Stage) root.getScene().getWindow();
+	    	stage.setTitle("Triadam Routes");
+	    	stage.getIcons().add(new Image(getClass().getResource("/img/Triadam Cola.png").openStream()));
+	    	stage.setScene(scene);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     
     @FXML

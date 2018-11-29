@@ -131,7 +131,7 @@ public class User {
 	public String insert(String pass) {
 		String msg = "";
 		try {
-			con.execute("INSERT INTO users VALUE(DEFAULT, ?,MD5(?),?,?,?,?)", new String[] {userName,userLastName,pass,userDNI,userType,userActive}, false);
+			con.execute("INSERT INTO users VALUE(DEFAULT, ?,?,MD5(?),?,?,?)", new String[] {userName,userLastName,pass,userDNI,userType,userActive}, false);
 		} catch (Exception e) {
 			msg = e.getMessage();
 		}
@@ -199,7 +199,7 @@ public class User {
 	public static String nextID() {
 		String id = "000000000000";
 		try {
-            ResultSet rs = con.execute("SELECT LPAD((SELECT COUNT(*) + 1 FROM users), 6, '0') AS nextID", null, true);		
+            ResultSet rs = con.execute("SELECT max(AUTO_INCREMENT) as nextID FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'users'", null, true);		
             rs.next();
             id = rs.getString("nextID");
 		} catch (Exception e) {

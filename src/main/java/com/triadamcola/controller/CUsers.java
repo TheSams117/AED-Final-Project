@@ -192,9 +192,6 @@ public class CUsers implements Initializable {
     	imageView.setFitHeight(50);
     	
     	HBox hBox = new HBox(radioButton, radioButton2, radioButton3);
-
-    	
-    	
     	
     	grid.add(new Label("Nombre:"), 0, 0);
     	grid.add(userName, 1, 0);
@@ -268,6 +265,8 @@ public class CUsers implements Initializable {
     		u.setUserDNI(id);
     		u.setUserType(type);
     		u.setUserActive("1");
+    		String aux = u.nextID();
+    		u.setUserID(aux);
     		u.insert(pass);
     		
     		tableView.getItems().add(u);

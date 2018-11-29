@@ -166,7 +166,7 @@ public class Order {
 	public static String nextID() {
 		String id = "000000000000";
 		try {
-            ResultSet rs = con.execute("SELECT LPAD((SELECT COUNT(*) + 1 FROM orders), 6, '0') AS nextCod", null, true);		
+            ResultSet rs = con.execute("SELECT max(AUTO_INCREMENT) as nextID FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'orders'", null, true);		
             rs.next();
             id = rs.getString("nextID");
 		} catch (Exception e) {

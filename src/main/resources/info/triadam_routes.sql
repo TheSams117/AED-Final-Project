@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-11-2018 a las 16:31:44
+-- Tiempo de generación: 29-11-2018 a las 04:00:01
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.11
 
@@ -42,8 +42,8 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`order_id`, `order_name`, `order_status`, `order_address`) VALUES
 (3, 'Juan Esteban', 0, 'Universidad del Valle, Cali'),
 (4, 'Juan Carlos', 0, 'Jardin Plaza, local 43, Cali'),
-(5, 'Roberto Esteban', 0, 'Carrera 36 23, Cali'),
-(6, '1', 0, 'Calle 18 94');
+(6, '1', 0, 'Calle 18 94'),
+(13, 'Norha', 0, 'Universidad Icesi, Cali');
 
 -- --------------------------------------------------------
 
@@ -66,7 +66,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_lastname`, `user_password`, `user_dni`, `user_type`, `user_active`) VALUES
-(1, 'KorKux', '', '81dc9bdb52d04dc20036dbd8313ed055', '12356789', 2, 1);
+(1, 'KorKux', '', '81dc9bdb52d04dc20036dbd8313ed055', '123456', 2, 1),
+(2, 'vendedor', 'vendedor', '81dc9bdb52d04dc20036dbd8313ed055', '1335154', 1, 1),
+(3, 'transportador', 'transportador', '81dc9bdb52d04dc20036dbd8313ed055', '154412', 0, 1),
+(4, 'administrador', 'administrador', '81dc9bdb52d04dc20036dbd8313ed055', '1234', 2, 1),
+(5, 'Rosa', 'Meltroso', '81dc9bdb52d04dc20036dbd8313ed055', '8541', 0, 1),
+(6, 'Elvio', 'Lado', '81dc9bdb52d04dc20036dbd8313ed055', '85452115', 0, 1),
+(15, 'Roberto', 'Ortiz', '81dc9bdb52d04dc20036dbd8313ed055', '41254', 0, 1);
 
 --
 -- Índices para tablas volcadas
@@ -92,13 +98,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `order_id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
