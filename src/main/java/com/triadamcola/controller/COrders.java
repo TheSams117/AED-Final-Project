@@ -2,9 +2,11 @@ package com.triadamcola.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Dialog;
 
 import com.google.maps.errors.ApiException;
@@ -30,48 +32,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Alert;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.GridPane;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+import javafx.scene.layout.Priority;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableColumn.CellDataFeatures;
-import javafx.scene.control.TreeTableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.util.Callback;
-import javafx.util.Pair;
 import javafx.application.Platform;
-import static com.triadamcola.main.TriadamRouteIni.user;
 
 
 public class COrders implements Initializable {
@@ -92,6 +58,10 @@ public class COrders implements Initializable {
     @FXML
     private TableColumn<Order, String> addressColum;
 
+
+    @FXML
+    private Button btnDeliverOrder;
+
     @FXML
     private Button btnAddOrder;
 
@@ -99,10 +69,16 @@ public class COrders implements Initializable {
     private Button btnDelateOrder;
 
     @FXML
-    private Label labUserName;
+    private Button btnBack;
 
     @FXML
-    private Button btnDeliverOrder;
+    private TextField txtSearch;
+
+    @FXML
+    private Button btnSearch;
+
+    @FXML
+    private Button btnAddOrder1;
 
     @FXML
     void addOrder(ActionEvent event) {
@@ -174,7 +150,7 @@ public class COrders implements Initializable {
     }
 
     @FXML
-    void delateOrder(ActionEvent event) {
+    void deleteOrder(ActionEvent event) {
     	
     	if (tableView.getSelectionModel().getSelectedItem() != null){
     		tableView.getSelectionModel().getSelectedItem().remove();
@@ -192,15 +168,11 @@ public class COrders implements Initializable {
     @FXML
     void deliverOrder(ActionEvent event) {
 	    String url = "https://www.google.com/maps/dir/?api=1&origin=";
-	    boolean aux = false;
 	    try {
 			Routes routes = new Routes();
 			routes.generateAdyacency();
 			Queue<String> orders = routes.generateDeliveryRoute();
-			Queue<String> orders2 = routes.generateDeliveryRoute();
-			
-			System.out.println(orders.size());
-			
+						
 			int size = orders.size();
 	
 			for (int i = 0; !orders.isEmpty(); i++)
@@ -280,6 +252,21 @@ public class COrders implements Initializable {
             }
         }
     }
+    
+    @FXML
+    void back(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void modifyOrder(ActionEvent event) {
+
+    }
+
+    @FXML
+    void searchUser(ActionEvent event) {
+
+    }
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -289,7 +276,6 @@ public class COrders implements Initializable {
 	    nameColum.setCellValueFactory(new PropertyValueFactory<Order, String>("orderName"));
 	    statusColum.setCellValueFactory(new PropertyValueFactory<Order, String>("orderStatus"));
 	    addressColum.setCellValueFactory(new PropertyValueFactory<Order, String>("orderAdress"));
-	    labUserName.setText(user.getUserName()+ " "+user.getUserLastName());
 	}
 
 }

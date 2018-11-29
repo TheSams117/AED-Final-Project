@@ -60,7 +60,7 @@ and open the template in the editor.
       </Text>
       <ImageView fitHeight="128.0" fitWidth="135.0" layoutX="70.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/LoginUser.png" />
+            <Image url="/img/LoginUser.png" />
          </image></ImageView>
       <Button fx:id="btnLogin" layoutX="39.0" layoutY="395.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="180.0" text="INGRESAR">
          <font>

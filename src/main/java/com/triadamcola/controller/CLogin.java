@@ -2,7 +2,6 @@ package com.triadamcola.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
@@ -13,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Dialog;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 
@@ -24,7 +22,6 @@ import static com.triadamcola.main.TriadamRouteIni.user;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.triadamcola.model.User;
@@ -85,7 +82,12 @@ public class CLogin implements ILogin , Initializable {
     	if(user != null) {
     		user = u;
     		nextWindow(user);
-    	}
+    	}else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(null);
+			alert.setContentText("Usuario o contraseña incorrectos");
+		}
 	}
 	
 	private void nextWindow(User user) {

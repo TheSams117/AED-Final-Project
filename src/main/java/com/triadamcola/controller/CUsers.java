@@ -28,7 +28,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import static com.triadamcola.main.TriadamRouteIni.user;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,7 +35,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import com.triadamcola.model.Order;
 import com.triadamcola.model.User;
 
 import javafx.application.Platform;
@@ -104,7 +102,7 @@ public class CUsers implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
+ 
     }
 
     @FXML
@@ -270,7 +268,6 @@ public class CUsers implements Initializable {
     		u.setUserDNI(id);
     		u.setUserType(type);
     		u.setUserActive("1");
-    		u.setUserID(user.nextID());
     		u.insert(pass);
     		
     		tableView.getItems().add(u);

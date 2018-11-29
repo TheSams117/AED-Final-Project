@@ -131,7 +131,7 @@ public class User {
 	public String insert(String pass) {
 		String msg = "";
 		try {
-			con.execute("INSERT INTO users VALUE(DEFAULT, ?,?,?,?,?,?)", new String[] {userName,userLastName,pass,userDNI,userType,userActive}, false);
+			con.execute("INSERT INTO users VALUE(DEFAULT, ?,MD5(?),?,?,?,?)", new String[] {userName,userLastName,pass,userDNI,userType,userActive}, false);
 		} catch (Exception e) {
 			msg = e.getMessage();
 		}

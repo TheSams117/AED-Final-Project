@@ -143,8 +143,4 @@ public class Routes {
 		
 		return toVisit;
 	}
-	
-	public static void main(String[] args) throws ApiException, InterruptedException, IOException {
-		new Routes();
-	}
 }

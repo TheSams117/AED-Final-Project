@@ -27,7 +27,10 @@ user: KorKux
 password: 1234
 
 ### Credits
-Cristhian Castillo (KorKux)
-Iván Camilo Goez Palacio.
-Sergio Andrés Lozada Sánchez. 
-Icesi University - Universidad Icesi
+* Cristhian Castillo (KorKux)
+* Iván Camilo Goez Palacio.
+* Sergio Andrés Lozada Sánchez. 
+* Icesi University - Universidad Icesi  
+
+Thanks to @Wyatt for the designs of Triadam :)  
+If you want to contact him you can do it by his gmail: wyattbors@gmail.com
